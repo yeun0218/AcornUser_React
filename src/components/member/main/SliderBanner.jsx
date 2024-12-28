@@ -4,6 +4,9 @@ import React from "react";
 import Slider from "react-slick";
 import { Link} from 'react-router-dom';
 import { SLIDER, SLIDEIMG } from "../../../assets/styles/MainStyle";
+import discountImage from "../../../assets/images/discount.png";
+import firstwon from "../../../assets/images/firstwon.png";
+
 
 const SliderBanner = () => {
 
@@ -25,7 +28,7 @@ const SliderBanner = () => {
         <Slider {...settings}>
           <div>
             <Link to="/subscription">
-              <SLIDEIMG src="https://res.cloudinary.com/drxxdsv01/image/upload/v1666800034/slide1_gv9ra5.png" alt="slider1" />
+              <SLIDEIMG src={discountImage} alt="slider1" />
             </Link>
           </div>
           <div>
@@ -35,7 +38,7 @@ const SliderBanner = () => {
           </div>
           <div>
             <Link to="/subscription">
-              <SLIDEIMG src="https://res.cloudinary.com/drxxdsv01/image/upload/v1666423298/slide3_ow5nsf.png" alt="slider3" />
+              <SLIDEIMG src={firstwon} alt="slider3" />
             </Link>
           </div>
         </Slider>

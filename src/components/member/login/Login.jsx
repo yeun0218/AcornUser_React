@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+// import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { loginMember } from "../../../service/dbLogic.js";
 import Header from "../../common/Header.jsx";
@@ -11,7 +11,7 @@ import {
   BORDERDIV,
   CHKDIV,
   CHKINPUT,
-  CHKLABEL,
+  // CHKLABEL,
   LDIV,
   LDIV2,
   LDIV3,

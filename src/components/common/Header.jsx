@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Container, Button, Nav } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import  logo from "../../assets/images/AcornBeauty_pink_logo.png";
+import {LOGO_IMG} from "../../assets/styles/MainStyle.jsx";
 
 const Header = ({ isLogin }) => {
   const [show, setShow] = useState(false); // 로그아웃 버튼 상태 관리
@@ -24,7 +26,13 @@ const Header = ({ isLogin }) => {
     <>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="/">Acorn Beauty</Navbar.Brand>
+          <Navbar.Brand href="/">
+          <LOGO_IMG
+            src={logo}
+            alt="Acorn Beauty Logo"
+          />
+          Acorn Beauty
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -50,7 +58,7 @@ const Header = ({ isLogin }) => {
             {!isLogin ? (
               <Button
                 className="btn btn-light btn-outline-secondary px-3"
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/login")}
               >
                 로그인
               </Button>
