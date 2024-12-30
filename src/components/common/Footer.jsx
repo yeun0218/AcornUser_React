@@ -10,7 +10,7 @@ const Footer = () => {
         bg="dark"
         style={{ color: "white" }}
       >
-        Monthly-Moon &copy; 2022
+        Acorn-Beauty &copy; 2024
       </Navbar>
     </>
   );
