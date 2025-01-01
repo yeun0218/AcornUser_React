@@ -13,6 +13,7 @@ import AdminLogin from "../components/manager/login/ManagerLogin.jsx";
 import MemAdmin from "../components/manager/member/ManagerMember.jsx";
 import NoticeAdmin from "../components/manager/notice/ManagerNotice.jsx";
 import Reservation from "../components/member/reservation/Reservation";
+import About from "../components/member/aboutshop/About.jsx";
 
 const AppRoutes = ({ isLogin, isAdmin, logout }) => {
   return (
@@ -26,6 +27,7 @@ const AppRoutes = ({ isLogin, isAdmin, logout }) => {
 
         {/*<Route path="/reservation" element={!isLogin ? <LoginPage /> : <Navigate to="/reservation" />} />*/}
         <Route path="/reservation" element={<Reservation />} />
+        <Route path="/about" element={<About />} />
       {/* 관리자 라우트 */}
       {/* <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/member" element={isAdmin ? <MemAdmin /> : <Navigate to="/admin/login" />} />

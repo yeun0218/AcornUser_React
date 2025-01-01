@@ -37,7 +37,7 @@ const Header = ({ isLogin }) => {
                 {/*  홈*/}
                 {/*</Link>*/}
                 <NavDropdown title="Acorn Salon" id="basic-nav-dropdown">
-                  <NavDropdown.Item as={Link} to="/salon/about">
+                  <NavDropdown.Item as={Link} to="/about">
                     샵 소개
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/salon/designers">
