@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from "../../common/Header.jsx";
+import ReservationSuccess from './ReservationSuccess';
 import TimePickerComponent from "./Picker/TimePickerComponent";
 import axios from "axios";
 
@@ -7,6 +8,7 @@ function Reservation({ isLogin, logout }) {
     const [state, setState] = useState({});
     const [services, setServices] = useState([]); // 서비스 목록을 상태로 관리
     const [members, setMembers] = useState([]); // 담당 직원 목록을 상태로 관리
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     const [selectedReservation, setSelectedReservation] = useState({
         serviceName: '',
@@ -49,8 +51,8 @@ function Reservation({ isLogin, logout }) {
 
     //예약 등록 process
     const handleInsert = () => {
-        if (!state.serviceName || !state.customerName || !state.memberName) {
-            //toast.error("서비스, 예약자, 직원을 선택해야 합니다.");
+        if (!state.serviceName || !state.memberName) {
+            alert("서비스와 직원을 선택해야합니다.")
             return;
         }
 
@@ -66,7 +68,8 @@ function Reservation({ isLogin, logout }) {
         axios.post("http://localhost:8080/reservation/user", dataToInsert)
             .then((res) => {
                 if (res.data.isSuccess) {
-                    alert("예약이 성공적으로 완료 되었습니다!")
+                    //alert("예약이 성공적으로 완료되었습니다!")
+                    setShowSuccessModal(true);
                 }
             })
             .catch((error) => {
@@ -76,106 +79,110 @@ function Reservation({ isLogin, logout }) {
 
     return (
         <div>
-            <Header isLogin={isLogin} logout={logout} />
-            <h1>예약하기</h1>
+            <Header isLogin={isLogin} logout={logout}/>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh'}}>
+                <div style={{width: '100%', maxWidth: '600px'}}>
+                    <h1>예약하기</h1>
 
-            <div>
-                <form>
-                    {/* 서비스명 Select */}
-                    <div className="mb-3">
-                        <label>서비스 명</label>
-                        <select
-                            name="serviceName"
-                            value={selectedReservation.serviceName}
-                            onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
-                            className="form-control"
-                        >
-                            <option value="">서비스를 선택하세요</option>
-                            {Array.isArray(services) && services.map((service) => (
-                                <option key={service.serviceCode} value={service.serviceName}>
-                                    {service.serviceName}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    <form>
+                        {/* 서비스명 Select */}
+                        <div className="mb-3">
+                            <label>서비스 명</label>
+                            <select
+                                name="serviceName"
+                                value={selectedReservation.serviceName}
+                                onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
+                                className="form-control"
+                            >
+                                <option value="">서비스를 선택하세요</option>
+                                {Array.isArray(services) && services.map((service) => (
+                                    <option key={service.serviceCode} value={service.serviceName}>
+                                        {service.serviceName}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                    {/* 예약자 Input */}
-                    <div className="mb-3">
-                        <label>예약자</label>
-                        <input
-                            type="text"
-                            name="customerName"
-                            value={selectedReservation.customerName}
-                            onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
-                            className="form-control"
-                            placeholder="예약자 이름을 입력하세요"
-                        />
-                    </div>
+                        {/* 예약자 Input */}
+                        <div className="mb-3">
+                            <label>예약자</label>
+                            <input
+                                type="text"
+                                name="customerName"
+                                value={selectedReservation.customerName}
+                                onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
+                                className="form-control"
+                                placeholder="예약자 이름을 입력하세요"
+                            />
+                        </div>
 
-                    {/* 담당 직원 Select */}
-                    <div className="mb-3">
-                        <label>담당 직원</label>
-                        <select
-                            name="memberName"
-                            value={selectedReservation.memberName}
-                            onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
-                            className="form-control"
-                        >
-                            <option value="">직원을 선택하세요</option>
-                            {Array.isArray(members) && members.map((member) => (
-                                <option key={member.memberId} value={member.memberName}>
-                                    {member.memberName} / {member.memberJob}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                        {/* 담당 직원 Select */}
+                        <div className="mb-3">
+                            <label>담당 직원</label>
+                            <select
+                                name="memberName"
+                                value={selectedReservation.memberName}
+                                onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
+                                className="form-control"
+                            >
+                                <option value="">직원을 선택하세요</option>
+                                {Array.isArray(members) && members.map((member) => (
+                                    <option key={member.memberId} value={member.memberName}>
+                                        {member.memberName} / {member.memberJob}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                    {/* 예약 날짜 */}
-                    <div className="mb-3">
-                        <label>예약 날짜</label>
-                        <input
-                            type="date"
-                            name="reservationDate"
-                            value={selectedReservation.reservationDate}
-                            onFocus={(e) => e.target.showPicker()} // 클릭 시 달력 표시
-                            onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
-                            className="form-control"
-                            min={new Date().toLocaleDateString('en-CA')} // 최소값: 오늘 날짜
-                        />
-                    </div>
+                        {/* 예약 날짜 */}
+                        <div className="mb-3">
+                            <label>예약 날짜</label>
+                            <input
+                                type="date"
+                                name="reservationDate"
+                                value={selectedReservation.reservationDate}
+                                onFocus={(e) => e.target.showPicker()} // 클릭 시 달력 표시
+                                onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
+                                className="form-control"
+                                min={new Date().toLocaleDateString('en-CA')} // 최소값: 오늘 날짜
+                            />
+                        </div>
 
-                    {/* 예약 시간 */}
-                    <div className="mb-3">
-                        <label>예약 시간</label>
-                        <TimePickerComponent
-                            value={selectedReservation.reservationTime} // 선택된 예약 시간 전달
-                            onChange={(value) => handleFieldChange('reservationTime', value)}
-                            isEditing={true} // 항상 편집 가능
-                        />
-                    </div>
+                        {/* 예약 시간 */}
+                        <div className="mb-3">
+                            <label>예약 시간</label>
+                            <TimePickerComponent
+                                value={selectedReservation.reservationTime} // 선택된 예약 시간 전달
+                                onChange={(value) => handleFieldChange('reservationTime', value)}
+                                isEditing={true} // 항상 편집 가능
+                            />
+                        </div>
 
-                    {/* 특이사항 */}
-                    <div className="mb-3">
-                        <label>특이사항</label>
-                        <input
-                            type="text"
-                            name="reservationComm"
-                            value={selectedReservation.reservationComm}
-                            onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
-                            className="form-control"
-                        />
-                    </div>
+                        {/* 특이사항 */}
+                        <div className="mb-3">
+                            <label>특이사항</label>
+                            <input
+                                type="text"
+                                name="reservationComm"
+                                value={selectedReservation.reservationComm}
+                                onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
+                                className="form-control"
+                            />
+                        </div>
 
-                    <div className="mt-3">
-                        <button type="button" className="btn btn-primary" onClick={handleInsert}>
-                            등록
-                        </button>
-                    </div>
-                </form>
+                        <div className="mt-3" style={{ textAlign: 'right' }}>
+                            <button type="button" className="btn btn-primary" onClick={handleInsert}>
+                                등록
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
+                {showSuccessModal && (
+                    <ReservationSuccess setShowSuccessModal={setShowSuccessModal}/>
+                )}
+            </div>
+            );
+            }
 
-        </div>
-    );
-}
-
-export default Reservation;
+            export default Reservation;
