@@ -13,6 +13,8 @@ import AdminLogin from "../components/manager/login/ManagerLogin.jsx";
 import MemAdmin from "../components/manager/member/ManagerMember.jsx";
 import NoticeAdmin from "../components/manager/notice/ManagerNotice.jsx";
 import Reservation from "../components/member/reservation/Reservation";
+import Notice from "../components/member/notice/Notice.jsx";
+import NoticeDetail from "../components/member/notice/NoticeDetail.jsx";
 import About from "../components/member/aboutshop/About.jsx";
 
 const AppRoutes = ({ isLogin, isAdmin, logout }) => {
@@ -25,9 +27,12 @@ const AppRoutes = ({ isLogin, isAdmin, logout }) => {
       <Route path="/findidpass" element={<FindIdPass />} />
       <Route path="/mypage" element={isLogin ? <MyAccount /> : <Navigate to="/login" />} />
 
-        {/*<Route path="/reservation" element={!isLogin ? <LoginPage /> : <Navigate to="/reservation" />} />*/}
-        <Route path="/reservation" element={<Reservation />} />
-        <Route path="/about" element={<About />} />
+      {/*<Route path="/reservation" element={!isLogin ? <LoginPage /> : <Navigate to="/reservation" />} />*/}
+      <Route path="/reservation" element={<Reservation />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/notice" element={<Notice />} />
+      <Route path="/notice/:no" element={<NoticeDetail />} />
+
       {/* 관리자 라우트 */}
       {/* <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/member" element={isAdmin ? <MemAdmin /> : <Navigate to="/admin/login" />} />
