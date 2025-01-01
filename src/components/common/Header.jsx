@@ -56,7 +56,7 @@ const Header = ({ isLogin }) => {
                 <Link to="/notice" className="nav-link">
                   공지사항
                 </Link>
-                <Link to="/faq" className="nav-link">
+                <Link to="/reservation" className="nav-link">
                   예약하기
                 </Link>
               </Nav>
