@@ -16,6 +16,7 @@ import Reservation from "../components/member/reservation/Reservation";
 import Notice from "../components/member/notice/Notice.jsx";
 import NoticeDetail from "../components/member/notice/NoticeDetail.jsx";
 import About from "../components/member/aboutshop/About.jsx";
+import Mypage from "../components/member/mypage/MyPage.jsx";
 
 const AppRoutes = ({ isLogin, isAdmin, logout }) => {
   return (
@@ -25,7 +26,8 @@ const AppRoutes = ({ isLogin, isAdmin, logout }) => {
       <Route path="/login" element={!isLogin ? <LoginPage /> : <Navigate to="/" />} />
       <Route path="/register" element={!isLogin ? <RegisterPage /> : <Navigate to="/" />} />
       <Route path="/findidpass" element={<FindIdPass />} />
-      <Route path="/mypage" element={isLogin ? <MyAccount /> : <Navigate to="/login" />} />
+      {/* <Route path="/mypage" element={isLogin ? <MyAccount /> : <Navigate to="/login" />} /> */}
+      <Route path="/mypage" element={<Mypage />} />
 
       {/*<Route path="/reservation" element={!isLogin ? <LoginPage /> : <Navigate to="/reservation" />} />*/}
       <Route path="/reservation" element={<Reservation />} />
