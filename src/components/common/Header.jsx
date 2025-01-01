@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Container, Button, Nav } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import  logo from "../../assets/images/AcornBeauty_pink_logo.png";
+import  logo from "../../assets/images/AcornBeauty_logo_transparent.png";
 import {LOGO_IMG} from "../../assets/styles/MainStyle.jsx";
 
 const Header = ({ isLogin }) => {
@@ -31,7 +31,7 @@ const Header = ({ isLogin }) => {
             src={logo}
             alt="Acorn Beauty Logo"
           />
-          Acorn Beauty
+          AcornBeauty
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
