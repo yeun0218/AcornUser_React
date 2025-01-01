@@ -1,0 +1,29 @@
+.navbar-logo {
+  width: 40px; /* 로고 너비 */
+  height: 40px; /* 로고 높이 */
+  margin-right: 8px; /* 로고와 텍스트 간격 */
+  object-fit: contain; /* 이미지 비율 유지 */
+}
+
+.notice-navbar {
+  border-bottom: 1px solid #ddd; /* 하단 경계선 */
+}
+
+.navbar .nav-link {
+  margin-right: 15px; /* 네비게이션 간격 */
+  font-weight: 500;
+}
+
+.navbar .btn-outline-primary {
+  padding: 5px 12px; /* 로그인 버튼 크기 조정 */
+  font-size: 14px;
+}
+
+.notice-container {
+  margin-top: 2rem; /* 상단바와 공지사항 텍스트 사이 간격 */
+}
+
+.notice-container h1 {
+  font-size: 1.8rem; /* 공지사항 제목 글씨 크기 조정 */
+  margin-bottom: 1.5rem; /* 제목과 공지 리스트 사이 간격 */
+}
