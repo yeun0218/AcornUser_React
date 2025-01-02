@@ -18,13 +18,13 @@ function ReservationSuccess({ setShowSuccessModal }) {
 		>
 			<div className="modal-dialog">
 				<div className="modal-content">
-					<div className="modal-header">
-						<h5 className="modal-title">예약 성공</h5>
-					</div>
+					{/*<div className="modal-header">*/}
+					{/*	<h5 className="modal-title">예약 성공</h5>*/}
+					{/*</div>*/}
 					<div className="modal-body">
 						<p>예약이 성공적으로 완료되었습니다!</p>
-					</div>
-					<div className="modal-footer">
+					{/*</div>*/}
+					{/*<div className="modal-footer">*/}
 						<button
 							type="button"
 							className="btn btn-primary"
