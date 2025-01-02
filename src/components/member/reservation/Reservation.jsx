@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 import Header from "../../common/Header.jsx";
 import ReservationSuccess from './ReservationSuccess';
 import TimePickerComponent from "./Picker/TimePickerComponent";
-import axios from "axios";
 
 function Reservation({ isLogin, logout }) {
-    const [state, setState] = useState({});
     const [services, setServices] = useState([]); // 서비스 목록 상태
     const [members, setMembers] = useState([]); // 담당 직원 목록 상태
     const [customerData, setCustomerData] = useState({}); // 고객 데이터 상태
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [stompClient, setStompClient] = useState(null); // WebSocket 클라이언트
 
     const [selectedReservation, setSelectedReservation] = useState({
         serviceName: '',
@@ -19,7 +20,25 @@ function Reservation({ isLogin, logout }) {
         reservationComm: '',
     });
 
-    // 서비스, 담당 직원 목록 및 고객 데이터를 DB에서 가져오는 useEffect
+    // WebSocket 연결 설정
+    useEffect(() => {
+        const socket = new SockJS('http://localhost:8080/ws');
+        const client = Stomp.over(socket);
+
+        client.connect({}, () => {
+            console.log('WebSocket 연결 성공');
+            setStompClient(client); // WebSocket 클라이언트를 상태로 저장
+        });
+
+        // 컴포넌트 언마운트 시 WebSocket 연결 해제
+        return () => {
+            if (client) {
+                client.disconnect(() => console.log('WebSocket 연결 종료'));
+            }
+        };
+    }, []);
+
+    // 데이터 가져오기
     useEffect(() => {
         fetch('http://localhost:8080/reservation/service/user')
             .then(response => response.json())
@@ -33,14 +52,13 @@ function Reservation({ isLogin, logout }) {
 
         fetch('http://localhost:8080/reservation/customer/username', {
             method: 'GET',
-            credentials: 'include', // 쿠키 포함
+            credentials: 'include',
         })
             .then(response => response.json())
             .then(data => {
-                console.log('CustomerData Data:', data);
                 setCustomerData(data); // 고객 데이터를 상태에 저장
             })
-            .catch(err => console.error('Error fetching customerdata:', err));
+            .catch(err => console.error('Error fetching customer data:', err));
     }, []);
 
     const handleFieldChange = (name, value) => {
@@ -48,41 +66,32 @@ function Reservation({ isLogin, logout }) {
             ...prev,
             [name]: value,
         }));
-        handleChange({ target: { name, value } });
     };
 
-    const handleChange = (e) => {
-        setState({
-            ...state,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    // 예약 등록 process
     const handleInsert = () => {
         if (!selectedReservation.serviceName || !selectedReservation.memberName) {
             alert("서비스와 직원은 필수 입력 항목입니다.");
             return;
         }
 
-        const dataToInsert = {
+        const dataToSend = {
             serviceName: selectedReservation.serviceName,
-            customerName: customerData.customerName, 
+            customerName: customerData.customerName,
             memberName: selectedReservation.memberName,
             reservationDate: selectedReservation.reservationDate,
             reservationTime: selectedReservation.reservationTime,
             reservationComm: selectedReservation.reservationComm,
         };
 
-        axios.post("http://localhost:8080/reservation/user", dataToInsert)
-            .then((res) => {
-                if (res.data.isSuccess) {
-                    setShowSuccessModal(true);
-                }
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+        // WebSocket으로 알림 전송
+        if (stompClient) {
+            stompClient.send('/app/notifications', {}, JSON.stringify(dataToSend));
+            console.log('WebSocket으로 알림 전송:', dataToSend);
+        } else {
+            console.error('WebSocket 클라이언트가 초기화되지 않았습니다.');
+        }
+
+        setShowSuccessModal(true); // 예약 성공 모달 표시
     };
 
     return (
@@ -93,7 +102,6 @@ function Reservation({ isLogin, logout }) {
                     <h1>예약하기</h1>
 
                     <form>
-                        {/* 서비스명 Select */}
                         <div className="mb-3">
                             <label>서비스 명</label>
                             <select
@@ -111,7 +119,6 @@ function Reservation({ isLogin, logout }) {
                             </select>
                         </div>
 
-                        {/* 예약자 Input */}
                         <div className="mb-3">
                             <label>예약자</label>
                             <input
@@ -123,7 +130,6 @@ function Reservation({ isLogin, logout }) {
                             />
                         </div>
 
-                        {/* 담당 직원 Select */}
                         <div className="mb-3">
                             <label>담당 직원</label>
                             <select
@@ -141,7 +147,6 @@ function Reservation({ isLogin, logout }) {
                             </select>
                         </div>
 
-                        {/* 예약 날짜 */}
                         <div className="mb-3">
                             <label>예약 날짜</label>
                             <input
@@ -154,7 +159,6 @@ function Reservation({ isLogin, logout }) {
                             />
                         </div>
 
-                        {/* 예약 시간 */}
                         <div className="mb-3">
                             <label>예약 시간</label>
                             <TimePickerComponent
@@ -164,7 +168,6 @@ function Reservation({ isLogin, logout }) {
                             />
                         </div>
 
-                        {/* 특이사항 */}
                         <div className="mb-3">
                             <label>특이사항</label>
                             <input
