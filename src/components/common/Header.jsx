@@ -5,22 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/AcornBeauty_logo_transparent.png";
 import { LOGO_IMG } from "../../assets/styles/MainStyle.jsx";
 
-const Header = ({ isLogin }) => {
-  const [show, setShow] = useState(false); // 로그아웃 버튼 상태 관리
+const Header = ({ isLogin, logout }) => {
   const navigate = useNavigate();
-
-  // 로그인 상태 관리
-  useEffect(() => {
-    setShow(isLogin);
-  }, [isLogin]);
-
-  // 로그아웃 처리
-  const logout = () => {
-    sessionStorage.clear();
-    alert("로그아웃되었습니다.");
-    navigate("/login");
-    window.location.reload();
-  };
 
   return (
       <>
@@ -40,10 +26,10 @@ const Header = ({ isLogin }) => {
                   <NavDropdown.Item as={Link} to="/about">
                     샵 소개
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/salon/designers">
+                  <NavDropdown.Item as={Link} to="/stylist">
                     디자이너 소개
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/salon/services">
+                  <NavDropdown.Item as={Link} to="/service">
                     서비스 소개
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -63,7 +49,9 @@ const Header = ({ isLogin }) => {
               {!isLogin ? (
                   <Button
                       className="btn btn-light btn-outline-secondary px-3"
-                      onClick={() => navigate("/login")}
+                      onClick={() => {
+                        console.log("로그인 버튼 클릭");
+                        navigate("/login")}}
                   >
                     로그인
                   </Button>
