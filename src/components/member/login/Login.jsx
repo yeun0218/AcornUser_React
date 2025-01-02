@@ -99,7 +99,7 @@ const LoginPage = ({isLogin, setIsLogin, logout}) => {
 
   return (
     <>
-      <Header isLogin={isLogin} logout={logout}/>
+      {/* <Header /> */}
       <br />
       <LDIV>
         <LSPAN>로그인</LSPAN>
