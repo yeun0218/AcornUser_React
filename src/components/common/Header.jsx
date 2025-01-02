@@ -40,10 +40,10 @@ const Header = ({ isLogin }) => {
                   <NavDropdown.Item as={Link} to="/about">
                     샵 소개
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/salon/designers">
+                  <NavDropdown.Item as={Link} to="/stylist">
                     디자이너 소개
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/salon/services">
+                  <NavDropdown.Item as={Link} to="/service">
                     서비스 소개
                   </NavDropdown.Item>
                 </NavDropdown>

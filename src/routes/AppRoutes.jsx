@@ -17,6 +17,7 @@ import Notice from "../components/member/notice/Notice.jsx";
 import NoticeDetail from "../components/member/notice/NoticeDetail.jsx";
 import About from "../components/member/aboutshop/About.jsx";
 import Mypage from "../components/member/mypage/MyPage.jsx";
+import Stylist from "../components/member/stylist/Stylist";
 
 const AppRoutes = ({ isLogin, isAdmin, logout }) => {
   return (
@@ -32,6 +33,7 @@ const AppRoutes = ({ isLogin, isAdmin, logout }) => {
       {/*<Route path="/reservation" element={!isLogin ? <LoginPage /> : <Navigate to="/reservation" />} />*/}
       <Route path="/reservation" element={<Reservation />} />
       <Route path="/about" element={<About />} />
+        <Route path="/stylist" element={<Stylist />} />
       <Route path="/notice" element={<Notice />} />
       <Route path="/notice/:no" element={<NoticeDetail />} />
 
