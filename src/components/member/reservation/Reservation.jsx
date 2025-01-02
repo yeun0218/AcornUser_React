@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
 import Header from "../../common/Header.jsx";
 import ReservationSuccess from './ReservationSuccess';
 import TimePickerComponent from "./Picker/TimePickerComponent";
+import axios from "axios";
 
 function Reservation({ isLogin, logout }) {
+    const [state, setState] = useState({});
     const [services, setServices] = useState([]); // 서비스 목록 상태
     const [members, setMembers] = useState([]); // 담당 직원 목록 상태
     const [customerData, setCustomerData] = useState({}); // 고객 데이터 상태
     const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [stompClient, setStompClient] = useState(null); // WebSocket 클라이언트
 
     const [selectedReservation, setSelectedReservation] = useState({
         serviceName: '',
@@ -20,25 +19,6 @@ function Reservation({ isLogin, logout }) {
         reservationComm: '',
     });
 
-    // WebSocket 연결 설정
-    useEffect(() => {
-        const socket = new SockJS('http://localhost:8080/ws');
-        const client = Stomp.over(socket);
-
-        client.connect({}, () => {
-            console.log('WebSocket 연결 성공');
-            setStompClient(client); // WebSocket 클라이언트를 상태로 저장
-        });
-
-        // 컴포넌트 언마운트 시 WebSocket 연결 해제
-        return () => {
-            if (client) {
-                client.disconnect(() => console.log('WebSocket 연결 종료'));
-            }
-        };
-    }, []);
-
-    // 데이터 가져오기
     useEffect(() => {
         fetch('http://localhost:8080/reservation/service/user')
             .then(response => response.json())
@@ -58,7 +38,7 @@ function Reservation({ isLogin, logout }) {
             .then(data => {
                 setCustomerData(data); // 고객 데이터를 상태에 저장
             })
-            .catch(err => console.error('Error fetching customer data:', err));
+            .catch(err => console.error('Error fetching customerdata:', err));
     }, []);
 
     const handleFieldChange = (name, value) => {
@@ -66,6 +46,14 @@ function Reservation({ isLogin, logout }) {
             ...prev,
             [name]: value,
         }));
+        handleChange({ target: { name, value } });
+    };
+
+    const handleChange = (e) => {
+        setState({
+            ...state,
+            [e.target.name]: e.target.value,
+        });
     };
 
     const handleInsert = () => {
@@ -74,7 +62,7 @@ function Reservation({ isLogin, logout }) {
             return;
         }
 
-        const dataToSend = {
+        const dataToInsert = {
             serviceName: selectedReservation.serviceName,
             customerName: customerData.customerName,
             memberName: selectedReservation.memberName,
@@ -83,20 +71,43 @@ function Reservation({ isLogin, logout }) {
             reservationComm: selectedReservation.reservationComm,
         };
 
-        // WebSocket으로 알림 전송
-        if (stompClient) {
-            stompClient.send('/app/notifications', {}, JSON.stringify(dataToSend));
-            console.log('WebSocket으로 알림 전송:', dataToSend);
-        } else {
-            console.error('WebSocket 클라이언트가 초기화되지 않았습니다.');
-        }
+        axios.post("http://localhost:8080/reservation/user", dataToInsert)
+            .then((res) => {
+                if (res.data.isSuccess) {
+                    notifyERP(res.data); // ERP 알림 전송 함수
+                    setShowSuccessModal(true);
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    };
 
-        setShowSuccessModal(true); // 예약 성공 모달 표시
+    const notifyERP = (reservationData) => {
+        const token = localStorage.getItem('authToken');  // 로컬 스토리지에서 JWT 토큰을 가져옴
+        const message = `새로운 예약: ${reservationData.customerName}님, 예약 시간: ${reservationData.reservationTime}`;
+
+        // 줄바꿈 처리
+        const formattedContent = message.replace(/\n/g, '<br />'); // 줄바꿈 처리
+
+        axios.post('http://localhost:8080/api/notifications', {
+            message: formattedContent, // 예약 메시지 내용
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then(response => {
+                console.log('ERP 알림 전송 성공:', response);
+            })
+            .catch(error => {
+                console.error('ERP 알림 전송 실패:', error);
+            });
     };
 
     return (
         <div>
-            {/* <Header isLogin={isLogin} logout={logout} /> */}
+            <Header isLogin={isLogin} logout={logout} />
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
                 <div style={{ width: '100%', maxWidth: '600px' }}>
                     <h1>예약하기</h1>
