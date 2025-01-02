@@ -2,11 +2,11 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 // 회원 관련 컴포넌트
-import Main from "../components/member/main/Main.jsx";
-import LoginPage from "../components/member/login/Login.jsx";
-import RegisterPage from "../components/member/register/Register.jsx";
-import FindIdPass from "../components/member/login/FindIdPass.jsx";
-import MyAccount from "../components/member/mypage/MyAccount.jsx";
+import Main from "../components/user/main/Main.jsx";
+import LoginPage from "../components/user/login/Login.jsx";
+import RegisterPage from "../components/user/register/Register.jsx";
+import FindIdPass from "../components/user/login/FindIdPass.jsx";
+import MyAccount from "../components/user/mypage/MyAccount.jsx";
 
 // 관리자 관련 컴포넌트
 import AdminLogin from "../components/manager/login/ManagerLogin.jsx";
@@ -16,7 +16,7 @@ import Reservation from "../components/member/reservation/Reservation";
 import Notice from "../components/member/notice/Notice.jsx";
 import NoticeDetail from "../components/member/notice/NoticeDetail.jsx";
 import About from "../components/member/aboutshop/About.jsx";
-import Mypage from "../components/member/mypage/MyPage.jsx";
+import Mypage from "../components/user/mypage/MyPage.jsx";
 
 const AppRoutes = ({ isLogin, isAdmin, logout }) => {
   return (
