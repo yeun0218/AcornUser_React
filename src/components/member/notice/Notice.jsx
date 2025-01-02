@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Header from "../../common/Header.jsx"; // 상단 네비게이션 바
 import Pagination from "../../common/Pagination.jsx"; // 페이지네이션 컴포넌트
 import "./Notice.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -67,8 +66,6 @@ function Notice() {
 
   return (
     <div>
-      <Header />
-
       {/* 공지사항 리스트 */}
       <Container className="notice-container mt-5">
         <h1 className="mb-4">공지사항</h1>
