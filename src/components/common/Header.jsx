@@ -37,7 +37,7 @@ const Header = ({ isLogin }) => {
                 {/*  홈*/}
                 {/*</Link>*/}
                 <NavDropdown title="Acorn Salon" id="basic-nav-dropdown">
-                  <NavDropdown.Item as={Link} to="/salon/about">
+                  <NavDropdown.Item as={Link} to="/about">
                     샵 소개
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/salon/designers">
@@ -50,7 +50,7 @@ const Header = ({ isLogin }) => {
                 <Link to="/cart" className="nav-link">
                   Acorn Shop
                 </Link>
-                <Link to="/mypage/profile" className="nav-link">
+                <Link to="/mypage" className="nav-link">
                   마이페이지
                 </Link>
                 <Link to="/notice" className="nav-link">
