@@ -16,7 +16,9 @@ const App = () => {
 
   const logout = async () => {
     try {
-      await axios.post("http://localhost:8080/logoutProcess", null, { withCredentials: true , headers: {
+      await axios.post("http://localhost:8080/logoutProcess", null,
+      { withCredentials: true , 
+      headers: {
         Authorization: `Bearer ${Cookies.get("accessToken")}`, // 토큰 추가
       },});
       sessionStorage.clear(); // 세션 초기화

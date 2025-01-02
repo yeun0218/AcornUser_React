@@ -51,7 +51,7 @@ function MyPage() {
 
     return (
         <div>
-            <Header />
+            {/* <Header /> */}
             <div
                 style={{
                     display: "flex",

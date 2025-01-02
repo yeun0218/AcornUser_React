@@ -87,7 +87,7 @@ function Reservation({ isLogin, logout }) {
 
     return (
         <div>
-            <Header isLogin={isLogin} logout={logout} />
+            {/* <Header isLogin={isLogin} logout={logout} /> */}
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
                 <div style={{ width: '100%', maxWidth: '600px' }}>
                     <h1>예약하기</h1>

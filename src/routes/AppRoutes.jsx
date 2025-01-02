@@ -7,6 +7,7 @@ import LoginPage from "../components/member/login/Login.jsx";
 import RegisterPage from "../components/member/register/Register.jsx";
 import FindIdPass from "../components/member/login/FindIdPass.jsx";
 import MyAccount from "../components/member/mypage/MyAccount.jsx";
+import Stylist from "../components/member/stylist/Stylist.jsx";
 
 // 관리자 관련 컴포넌트
 import AdminLogin from "../components/manager/login/ManagerLogin.jsx";
@@ -30,8 +31,9 @@ const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
       <Route path="/findidpass" element={<FindIdPass />} />
       {/* <Route path="/mypage" element={isLogin ? <MyAccount /> : <Navigate to="/login" />} /> */}
       <Route path="/mypage" element={<Mypage />} />
+      <Route path="/stylist" element={<Stylist />} />
 
-      <Route path="/reservation" element={!isLogin ? <LoginPage /> : <Reservation isLogin={isLogin} logout={logout}/>} />
+      <Route path="/reservation" element={!isLogin ? <LoginPage setIsLogin={setIsLogin}/> : <Reservation />} />
       {/* <Route path="/reservation" element={<Reservation />} /> */}
       <Route path="/about" element={<About />} />
       <Route path="/notice" element={<Notice />} />

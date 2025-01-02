@@ -8,7 +8,7 @@ import Header from "../../common/Header.jsx";
 const About = () => {
     return (
         <div>
-            <Header />
+            {/* <Header /> */}
             <BrandStory />
             <Business />
             <Story />
