@@ -19,17 +19,25 @@ function Notice() {
   // 공지 목록을 가져오는 함수
   const fetchNotices = async (page) => {
     try {
+      const token = localStorage.getItem("accessToken"); // 저장된 토큰 가져오기
       const response = await axios.get(
-        `http://localhost:8080/notice?page=${page - 1}&size=${itemsPerPage}`
+        `http://localhost:8080/notice?page=${page - 1}&size=6`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Authorization 헤더 추가
+          },
+        }
       );
-      setNotices(response.data.content); // 공지 데이터 설정
-      setTotalPages(response.data.totalPages); // 총 페이지 수 설정
-      setIsLoading(false); // 로딩 상태 완료
+      console.log(response.data);
+      setNotices(response.data.content);
+      setTotalPages(response.data.totalPages);
+      setIsLoading(false);
     } catch (err) {
+      console.error(err);
       setError(err.message);
       setIsLoading(false);
     }
-  };
+  };  
 
   // 페이지 변경 시 호출되는 함수
   const handlePageChange = (page) => {
