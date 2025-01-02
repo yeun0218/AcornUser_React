@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from "../../common/Header.jsx";
 import ReservationSuccess from './ReservationSuccess';
 import TimePickerComponent from "./Picker/TimePickerComponent";
@@ -19,7 +19,6 @@ function Reservation({ isLogin, logout }) {
         reservationComm: '',
     });
 
-    // 서비스, 담당 직원 목록 및 고객 데이터를 DB에서 가져오는 useEffect
     useEffect(() => {
         fetch('http://localhost:8080/reservation/service/user')
             .then(response => response.json())
@@ -33,11 +32,10 @@ function Reservation({ isLogin, logout }) {
 
         fetch('http://localhost:8080/reservation/customer/username', {
             method: 'GET',
-            credentials: 'include', // 쿠키 포함
+            credentials: 'include',
         })
             .then(response => response.json())
             .then(data => {
-                console.log('CustomerData Data:', data);
                 setCustomerData(data); // 고객 데이터를 상태에 저장
             })
             .catch(err => console.error('Error fetching customerdata:', err));
@@ -58,7 +56,6 @@ function Reservation({ isLogin, logout }) {
         });
     };
 
-    // 예약 등록 process
     const handleInsert = () => {
         if (!selectedReservation.serviceName || !selectedReservation.memberName) {
             alert("서비스와 직원은 필수 입력 항목입니다.");
@@ -67,7 +64,7 @@ function Reservation({ isLogin, logout }) {
 
         const dataToInsert = {
             serviceName: selectedReservation.serviceName,
-            customerName: customerData.customerName, 
+            customerName: customerData.customerName,
             memberName: selectedReservation.memberName,
             reservationDate: selectedReservation.reservationDate,
             reservationTime: selectedReservation.reservationTime,
@@ -77,6 +74,7 @@ function Reservation({ isLogin, logout }) {
         axios.post("http://localhost:8080/reservation/user", dataToInsert)
             .then((res) => {
                 if (res.data.isSuccess) {
+                    notifyERP(res.data); // ERP 알림 전송 함수
                     setShowSuccessModal(true);
                 }
             })
@@ -85,15 +83,36 @@ function Reservation({ isLogin, logout }) {
             });
     };
 
+    const notifyERP = (reservationData) => {
+        const token = localStorage.getItem('authToken');  // 로컬 스토리지에서 JWT 토큰을 가져옴
+        const message = `새로운 예약: ${reservationData.customerName}님, 예약 시간: ${reservationData.reservationTime}`;
+
+        // 줄바꿈 처리
+        const formattedContent = message.replace(/\n/g, '<br />'); // 줄바꿈 처리
+
+        axios.post('http://localhost:8080/api/notifications', {
+            message: formattedContent, // 예약 메시지 내용
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then(response => {
+                console.log('ERP 알림 전송 성공:', response);
+            })
+            .catch(error => {
+                console.error('ERP 알림 전송 실패:', error);
+            });
+    };
+
     return (
         <div>
-            {/* <Header isLogin={isLogin} logout={logout} /> */}
+            <Header isLogin={isLogin} logout={logout} />
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
                 <div style={{ width: '100%', maxWidth: '600px' }}>
                     <h1>예약하기</h1>
 
                     <form>
-                        {/* 서비스명 Select */}
                         <div className="mb-3">
                             <label>서비스 명</label>
                             <select
@@ -111,7 +130,6 @@ function Reservation({ isLogin, logout }) {
                             </select>
                         </div>
 
-                        {/* 예약자 Input */}
                         <div className="mb-3">
                             <label>예약자</label>
                             <input
@@ -123,7 +141,6 @@ function Reservation({ isLogin, logout }) {
                             />
                         </div>
 
-                        {/* 담당 직원 Select */}
                         <div className="mb-3">
                             <label>담당 직원</label>
                             <select
@@ -141,7 +158,6 @@ function Reservation({ isLogin, logout }) {
                             </select>
                         </div>
 
-                        {/* 예약 날짜 */}
                         <div className="mb-3">
                             <label>예약 날짜</label>
                             <input
@@ -154,7 +170,6 @@ function Reservation({ isLogin, logout }) {
                             />
                         </div>
 
-                        {/* 예약 시간 */}
                         <div className="mb-3">
                             <label>예약 시간</label>
                             <TimePickerComponent
@@ -164,7 +179,6 @@ function Reservation({ isLogin, logout }) {
                             />
                         </div>
 
-                        {/* 특이사항 */}
                         <div className="mb-3">
                             <label>특이사항</label>
                             <input
