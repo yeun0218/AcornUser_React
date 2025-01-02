@@ -25,8 +25,9 @@ import {
   VALIDDIV,
   LJOIN,
 } from "../../../assets/styles/LoginStyle.js";
+import { Toast } from "react-bootstrap";
 
-const LoginPage = () => {
+const LoginPage = ({isLogin, setIsLogin, logout}) => {
   const navigate = useNavigate();
   const [customerId, setCustomerId] = useState(""); // 아이디 상태
   const [password, setPassword] = useState(""); // 비밀번호 상태
@@ -76,6 +77,7 @@ const LoginPage = () => {
         // 로그인 성공
         const { token } = response.data;
         sessionStorage.setItem("accessToken", token); // 세션 스토리지에 JWT 저장
+        setIsLogin(true);
 
         // "자동로그인" 상태라면 쿠키 저장
         if (isCheck) {
@@ -97,7 +99,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <Header />
+      <Header isLogin={isLogin} logout={logout}/>
       <br />
       <LDIV>
         <LSPAN>로그인</LSPAN>
@@ -147,7 +149,7 @@ const LoginPage = () => {
             <a href={KAKAO_AUTH_URL}>
               <SOCIALBTN src={KakaoIMG} alt="카카오 로그인" />
             </a>
-            <NaverLogin />
+            {/* <NaverLogin /> */}
           </SOCIALDIV>
 
           <LJOIN onClick={() => navigate("/register")}>회원가입</LJOIN>
