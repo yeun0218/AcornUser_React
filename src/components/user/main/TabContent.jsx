@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import data from '../../../data.jsx';
-import { TABTITLE } from '../../../assets/styles/MainStyle';
+import { TABTITLE } from '../../../assets/styles/MainStyle.jsx';
 import TabCards from './TabCard.jsx';
 
 

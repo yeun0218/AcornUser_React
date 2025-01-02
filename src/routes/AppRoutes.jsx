@@ -2,17 +2,18 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 // 회원 관련 컴포넌트
-import Main from "../components/member/main/Main.jsx";
-import LoginPage from "../components/member/login/Login.jsx";
-import RegisterPage from "../components/member/register/Register.jsx";
-import FindIdPass from "../components/member/login/FindIdPass.jsx";
-import MyAccount from "../components/member/mypage/MyAccount.jsx";
+import Main from "../components/user/main/Main.jsx";
+import LoginPage from "../components/user/login/Login.jsx";
+import RegisterPage from "../components/user/register/Register.jsx";
+import FindIdPass from "../components/user/login/FindIdPass.jsx";
+import MyAccount from "../components/user/mypage/MyAccount.jsx";
 
 // 관리자 관련 컴포넌트
 import AdminLogin from "../components/manager/login/ManagerLogin.jsx";
 import MemAdmin from "../components/manager/member/ManagerMember.jsx";
 import NoticeAdmin from "../components/manager/notice/ManagerNotice.jsx";
-import Reservation from "../components/member/reservation/Reservation";
+import Reservation from "../components/user/reservation/Reservation.jsx";
+
 
 const AppRoutes = ({ isLogin, isAdmin, logout }) => {
   return (
@@ -20,7 +21,7 @@ const AppRoutes = ({ isLogin, isAdmin, logout }) => {
       {/* 회원 라우트 */}
       <Route path="/" element={<Main />} />
       <Route path="/login" element={!isLogin ? <LoginPage /> : <Navigate to="/" />} />
-      <Route path="/register" element={!isLogin ? <RegisterPage /> : <Navigate to="/" />} />
+      <Route path="/register" element={!isLogin ? <RegisterPage/> : <Navigate to="/" />} />
       <Route path="/findidpass" element={<FindIdPass />} />
       <Route path="/mypage" element={isLogin ? <MyAccount /> : <Navigate to="/login" />} />
 
