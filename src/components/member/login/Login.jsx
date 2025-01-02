@@ -70,6 +70,8 @@ const LoginPage = () => {
         { withCredentials: true } // 쿠키 포함
       );
 
+      console.log("응답 데이터:", response.data); // 응답 로그
+
       if (response.status === 200) {
         // 로그인 성공
         const { token } = response.data;
