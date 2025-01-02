@@ -76,13 +76,13 @@ function Notice() {
                 {notice.noticeImagePath ? (
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:8080${notice.noticeImagePath}`}
+                    src={notice.noticeImagePath}
                     alt="공지 사진"
                     style={{ cursor: "pointer" }}
                     onClick={() => navigate(`/notice/${notice.noticeNo}`)}
                   />
                 ) : (
-                  <div className="no-image">이미지 없음</div>
+                  <div className="no-image"></div>
                 )}
                 <Card.Body>
                   <Card.Title
