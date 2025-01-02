@@ -18,19 +18,21 @@ import NoticeDetail from "../components/member/notice/NoticeDetail.jsx";
 import About from "../components/member/aboutshop/About.jsx";
 import Mypage from "../components/user/mypage/MyPage.jsx";
 
-const AppRoutes = ({ isLogin, isAdmin, logout }) => {
+const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
   return (
     <Routes>
-      {/* 회원 라우트 */}
-      <Route path="/" element={<Main />} />
-      <Route path="/login" element={!isLogin ? <LoginPage /> : <Navigate to="/" />} />
+      {/* 회원 라우트 */}  
+      {/* 로그아웃 */}
+      <Route path="/" element={<Main isLogin={isLogin} logout={logout} />} /> 
+    
+      <Route path="/login" element={!isLogin ? <LoginPage setIsLogin={setIsLogin}/> : <Navigate to="/" />} />
       <Route path="/register" element={!isLogin ? <RegisterPage /> : <Navigate to="/" />} />
       <Route path="/findidpass" element={<FindIdPass />} />
       {/* <Route path="/mypage" element={isLogin ? <MyAccount /> : <Navigate to="/login" />} /> */}
       <Route path="/mypage" element={<Mypage />} />
 
-      {/*<Route path="/reservation" element={!isLogin ? <LoginPage /> : <Navigate to="/reservation" />} />*/}
-      <Route path="/reservation" element={<Reservation />} />
+      <Route path="/reservation" element={!isLogin ? <LoginPage /> : <Reservation isLogin={isLogin} logout={logout}/>} />
+      {/* <Route path="/reservation" element={<Reservation />} /> */}
       <Route path="/about" element={<About />} />
       <Route path="/notice" element={<Notice />} />
       <Route path="/notice/:no" element={<NoticeDetail />} />

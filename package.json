@@ -10,6 +10,7 @@
     "js-cookie": "^3.0.5",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",
+    "react-bootstrap-icons": "^1.11.5",
     "react-daum-postcode": "^3.2.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.1",

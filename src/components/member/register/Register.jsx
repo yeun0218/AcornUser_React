@@ -158,7 +158,7 @@ const RegisterPage = (props) => {
                   <input
                     type="radio"
                     name="customerGender"
-                    value="male"
+                    value="남자"
                     onChange={(e) => setCustomerGender(e.target.value)}
                   />{" "}
                   남성
@@ -167,7 +167,7 @@ const RegisterPage = (props) => {
                   <input
                     type="radio"
                     name="customerGender"
-                    value="female"
+                    value="여자"
                     onChange={(e) => setCustomerGender(e.target.value)}
                   />{" "}
                   여성

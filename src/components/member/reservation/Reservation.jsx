@@ -6,20 +6,20 @@ import axios from "axios";
 
 function Reservation({ isLogin, logout }) {
     const [state, setState] = useState({});
-    const [services, setServices] = useState([]); // 서비스 목록을 상태로 관리
-    const [members, setMembers] = useState([]); // 담당 직원 목록을 상태로 관리
+    const [services, setServices] = useState([]); // 서비스 목록 상태
+    const [members, setMembers] = useState([]); // 담당 직원 목록 상태
+    const [customerData, setCustomerData] = useState({}); // 고객 데이터 상태
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     const [selectedReservation, setSelectedReservation] = useState({
         serviceName: '',
-        customerName: '',
         memberName: '',
         reservationDate: '',
         reservationTime: '',
         reservationComm: '',
     });
 
-    // 서비스, 담당 직원 목록을 DB에서 가져오는 useEffect
+    // 서비스, 담당 직원 목록 및 고객 데이터를 DB에서 가져오는 useEffect
     useEffect(() => {
         fetch('http://localhost:8080/reservation/service/user')
             .then(response => response.json())
@@ -30,45 +30,53 @@ function Reservation({ isLogin, logout }) {
             .then(response => response.json())
             .then(data => setMembers(data))
             .catch(err => console.error('Error fetching members:', err));
+
+        fetch('http://localhost:8080/reservation/customer/username', {
+            method: 'GET',
+            credentials: 'include', // 쿠키 포함
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('CustomerData Data:', data);
+                setCustomerData(data); // 고객 데이터를 상태에 저장
+            })
+            .catch(err => console.error('Error fetching customerdata:', err));
     }, []);
 
     const handleFieldChange = (name, value) => {
-        // 필드 변경 시 상태를 업데이트하는 함수
         setSelectedReservation(prev => ({
-            ...prev, // 이전 상태를 유지
-            [name]: value, // 변경된 필드 업데이트
+            ...prev,
+            [name]: value,
         }));
-        handleChange({ target: { name, value } }); // 부모로 값 전달
+        handleChange({ target: { name, value } });
     };
 
-    //입력 폼에서 값 변경 시 상태 업데이트
     const handleChange = (e) => {
         setState({
             ...state,
-            [e.target.name]: e.target.value, // 변경된 입력값 상태 반영
+            [e.target.name]: e.target.value,
         });
     };
 
-    //예약 등록 process
+    // 예약 등록 process
     const handleInsert = () => {
-        if (!state.serviceName || !state.memberName) {
-            alert("서비스와 직원을 선택해야합니다.")
+        if (!selectedReservation.serviceName || !selectedReservation.memberName) {
+            alert("서비스와 직원은 필수 입력 항목입니다.");
             return;
         }
 
         const dataToInsert = {
-            serviceName: state.serviceName,
-            customerName: state.customerName,
-            memberName: state.memberName,
-            reservationDate: state.reservationDate,
-            reservationTime: state.reservationTime,
-            reservationComm: state.reservationComm,
+            serviceName: selectedReservation.serviceName,
+            customerName: customerData.customerName, 
+            memberName: selectedReservation.memberName,
+            reservationDate: selectedReservation.reservationDate,
+            reservationTime: selectedReservation.reservationTime,
+            reservationComm: selectedReservation.reservationComm,
         };
 
         axios.post("http://localhost:8080/reservation/user", dataToInsert)
             .then((res) => {
                 if (res.data.isSuccess) {
-                    //alert("예약이 성공적으로 완료되었습니다!")
                     setShowSuccessModal(true);
                 }
             })
@@ -79,9 +87,9 @@ function Reservation({ isLogin, logout }) {
 
     return (
         <div>
-            <Header isLogin={isLogin} logout={logout}/>
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh'}}>
-                <div style={{width: '100%', maxWidth: '600px'}}>
+            <Header isLogin={isLogin} logout={logout} />
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+                <div style={{ width: '100%', maxWidth: '600px' }}>
                     <h1>예약하기</h1>
 
                     <form>
@@ -109,10 +117,9 @@ function Reservation({ isLogin, logout }) {
                             <input
                                 type="text"
                                 name="customerName"
-                                value={selectedReservation.customerName}
-                                onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
+                                value={customerData.customerName || 'Loading...'}
                                 className="form-control"
-                                placeholder="예약자 이름을 입력하세요"
+                                readOnly
                             />
                         </div>
 
@@ -141,10 +148,9 @@ function Reservation({ isLogin, logout }) {
                                 type="date"
                                 name="reservationDate"
                                 value={selectedReservation.reservationDate}
-                                onFocus={(e) => e.target.showPicker()} // 클릭 시 달력 표시
                                 onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
                                 className="form-control"
-                                min={new Date().toLocaleDateString('en-CA')} // 최소값: 오늘 날짜
+                                min={new Date().toLocaleDateString('en-CA')}
                             />
                         </div>
 
@@ -152,9 +158,9 @@ function Reservation({ isLogin, logout }) {
                         <div className="mb-3">
                             <label>예약 시간</label>
                             <TimePickerComponent
-                                value={selectedReservation.reservationTime} // 선택된 예약 시간 전달
+                                value={selectedReservation.reservationTime}
                                 onChange={(value) => handleFieldChange('reservationTime', value)}
-                                isEditing={true} // 항상 편집 가능
+                                isEditing={true}
                             />
                         </div>
 
@@ -178,11 +184,11 @@ function Reservation({ isLogin, logout }) {
                     </form>
                 </div>
             </div>
-                {showSuccessModal && (
-                    <ReservationSuccess setShowSuccessModal={setShowSuccessModal}/>
-                )}
-            </div>
-            );
-            }
+            {showSuccessModal && (
+                <ReservationSuccess setShowSuccessModal={setShowSuccessModal} />
+            )}
+        </div>
+    );
+}
 
-            export default Reservation;
+export default Reservation;

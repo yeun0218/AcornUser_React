@@ -1,20 +1,20 @@
 /* 전체 섹션 스타일 */
 .story {
-    padding: 50px 20px;
+    padding: 50px 300px;
     background-color: #fff;
-    text-align: left;
+    text-align: center; /* 전체 섹션 가운데 정렬 */
     display: flex;
     flex-direction: column;
+    align-items: center; /* 모든 요소를 가운데 정렬 */
 }
 
 /* 제목 스타일 */
 .story h2 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: bold;
     margin-bottom: 30px;
-    text-align: left; /* 제목도 왼쪽 정렬 */
+    text-align: left; /* 제목 가운데 정렬 */
     width: 100%; /* 제목이 부모 컨테이너 전체를 차지 */
-    padding-left: 350px; /* 타임라인 전체를 오른쪽으로 이동 */
 }
 
 /* 콘텐츠 영역 */
@@ -23,19 +23,19 @@
     width: 100%;
     margin: 0 auto;
     display: flex;
-    justify-content: flex-start; /* 콘텐츠를 왼쪽 정렬 */
+    justify-content: center; /* 콘텐츠를 가운데 정렬 */
     align-items: flex-start; /* 상단 정렬 */
-    gap: 30px; /* 이미지와 타임라인 간격 */
+    gap: 100px; /* 이미지와 타임라인 간격 */
 }
 
 /* 이미지 영역 */
 .story-image {
     flex: 1;
-    text-align: left; /* 이미지 왼쪽 정렬 */
+    text-align: center; /* 이미지 가운데 정렬 */
 }
 
 .story-image img {
-    max-width: 90%; /* 부모 컨테이너의 90% 너비 */
+    max-width: 100%; /* 부모 컨테이너의 90% 너비 */
     height: auto; /* 이미지 비율 유지 */
     border-radius: 10px; /* 선택 사항: 이미지 모서리 둥글게 */
 }
@@ -47,7 +47,7 @@
     padding: 0;
     margin: 0;
     position: relative;
-    text-align: left; /* 타임라인도 왼쪽 정렬 */
+    text-align: left; /* 타임라인 왼쪽 정렬 */
 }
 
 .timeline-list li {
@@ -62,7 +62,7 @@
     background-color: #333; /* 점 색상 */
     border-radius: 50%; /* 원형 점 */
     position: absolute;
-    left: 10px; /* 점의 위치를 선과 맞춤 */
+    left: 0; /* 점의 위치를 선과 맞춤 */
     top: 5px; /* 점의 세로 정렬 조정 */
     z-index: 1; /* 점이 선 위에 표시되도록 설정 */
 }
