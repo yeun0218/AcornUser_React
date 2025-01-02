@@ -17,7 +17,9 @@
     max-width: 90vw; /* 화면 너비의 90% */
     max-height: 90vh; /* 화면 높이의 90% */
     width: 600px; /* 최소 너비 */
-    margin: auto; /* 중앙 정렬 */
+    margin: auto; /* 기본 중앙 정렬 */
+    margin-top: 200px; /* 상단에서 100px 아래로 이동 */
+    margin-left: 700px;
     overflow: hidden; /* 내용 넘침 방지 */
 }
 
