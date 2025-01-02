@@ -52,7 +52,7 @@ export default function NoticeDetail() {
           <Col md={6} className="d-flex justify-content-center align-items-center">
             {notice.noticeImagePath ? (
               <img
-                src={`http://localhost:8080${notice.noticeImagePath}`}
+                src={notice.noticeImagePath}
                 alt="공지 이미지"
                 style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "cover" }}
               />
