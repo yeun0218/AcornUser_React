@@ -107,7 +107,7 @@ function Reservation({ isLogin, logout }) {
 
     return (
         <div>
-            <Header isLogin={isLogin} logout={logout} />
+            {/*<Header isLogin={isLogin} logout={logout} />*/}
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
                 <div style={{ width: '100%', maxWidth: '600px' }}>
                     <h1>예약하기</h1>
@@ -164,6 +164,7 @@ function Reservation({ isLogin, logout }) {
                                 type="date"
                                 name="reservationDate"
                                 value={selectedReservation.reservationDate}
+                                onFocus={(e) => e.target.showPicker()}
                                 onChange={(e) => handleFieldChange(e.target.name, e.target.value)}
                                 className="form-control"
                                 min={new Date().toLocaleDateString('en-CA')}
