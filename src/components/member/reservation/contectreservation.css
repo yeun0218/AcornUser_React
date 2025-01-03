@@ -1,0 +1,85 @@
+.reservation-contact-us {
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: left;
+}
+
+.reservation-contact-us h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center; /* 제목 중앙 정렬 */
+}
+
+.reservation-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 각 항목 간의 간격 */
+    max-width: 600px;
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+.reservation-contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-contact-item .icon {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.reservation-contact-item p {
+    flex: 1;
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: 1px solid #333;
+    background-color: #fff;
+    color: #333;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: 1px solid #333;
+    background-color: #fff;
+    color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* 버튼 스타일 */
+.btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+}

@@ -4,6 +4,7 @@ import ReservationSuccess from './ReservationSuccess';
 import TimePickerComponent from "./Picker/TimePickerComponent";
 import axios from "axios";
 import './reservationform.css';
+import ContactUsReservation from "./ContactUs_reservation";
 
 function Reservation({ isLogin, logout }) {
     const [state, setState] = useState({});
@@ -203,6 +204,8 @@ function Reservation({ isLogin, logout }) {
             {showSuccessModal && (
                 <ReservationSuccess setShowSuccessModal={setShowSuccessModal} />
             )}
+
+            <ContactUsReservation />
         </div>
     );
 }
