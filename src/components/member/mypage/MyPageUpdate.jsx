@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../common/Header.jsx";
 import axios from "axios";
-import MyPageUpdate from "./MyPageUpdate.jsx";
 
-function MyPage() {
+function MyPageUpdate() {
     const [userInfo, setUserInfo] = useState({
         customerShopid: "",
         customerName: "",
@@ -190,4 +189,4 @@ function MyPage() {
     );
 }
 
-export default MyPage;
+export default MyPageUpdate;
