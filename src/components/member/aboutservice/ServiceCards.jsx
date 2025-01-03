@@ -31,7 +31,7 @@ const ServiceCards = () => {
                         <div className="card" style={{ width: '100%' }}>
                             <img
                                 src={service.image || defaultServiceImage} // 서비스 이미지 없으면 기본 이미지
-                                className="card-img-top"
+                                className="service-card-img-top"
                                 alt={service.serviceName}
                             />
                             <div className="card-body">
