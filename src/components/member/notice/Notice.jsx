@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Header from "../../common/Header.jsx"; // 상단 네비게이션 바
 import Pagination from "../../common/Pagination.jsx"; // 페이지네이션 컴포넌트
 import "./Notice.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -67,8 +66,6 @@ function Notice() {
 
   return (
     <div>
-      <Header />
-
       {/* 공지사항 리스트 */}
       <Container className="notice-container mt-5">
         <h1 className="mb-4">공지사항</h1>
@@ -79,13 +76,13 @@ function Notice() {
                 {notice.noticeImagePath ? (
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:8080${notice.noticeImagePath}`}
+                    src={notice.noticeImagePath}
                     alt="공지 사진"
                     style={{ cursor: "pointer" }}
                     onClick={() => navigate(`/notice/${notice.noticeNo}`)}
                   />
                 ) : (
-                  <div className="no-image">이미지 없음</div>
+                  <div className="no-image"></div>
                 )}
                 <Card.Body>
                   <Card.Title

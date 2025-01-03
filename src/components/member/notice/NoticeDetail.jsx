@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import Header from "../../common/Header.jsx";
 
 export default function NoticeDetail() {
   const navigate = useNavigate();
@@ -48,14 +47,12 @@ export default function NoticeDetail() {
 
   return (
     <div>
-      <Header />
-
       <Container className="mt-5">
         <Row>
           <Col md={6} className="d-flex justify-content-center align-items-center">
             {notice.noticeImagePath ? (
               <img
-                src={`http://localhost:8080${notice.noticeImagePath}`}
+                src={notice.noticeImagePath}
                 alt="공지 이미지"
                 style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "cover" }}
               />
