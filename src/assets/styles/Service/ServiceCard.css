@@ -1,0 +1,64 @@
+/* 간격 조정 */
+.service-cards-container {
+    margin-top: 20px; /* 헤더와 카드 컨테이너 사이 간격 */
+}
+
+/* 카드 크기 축소 */
+.card {
+    width: 90%; /* 카드의 너비를 축소 */
+    max-width: 280px; /* 최대 너비 제한 */
+    margin: 10px auto; /* 카드 간격 중앙 정렬 */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 이미지 스타일 */
+.card-img-top {
+    border-radius: 10px 10px 0 0;
+    height: 150px; /* 이미지 크기를 줄임 */
+    object-fit: cover; /* 이미지 크기 조정 */
+}
+
+/* 카드 본문 스타일 */
+.card-body {
+    padding: 10px; /* 카드 본문 여백 축소 */
+}
+
+/* 제목 스타일 */
+.card-title {
+    font-size: 16px; /* 제목 크기 축소 */
+    font-weight: bold;
+    text-align: center; /* 제목 가운데 정렬 */
+}
+
+/* 텍스트 스타일 */
+.card-text {
+    font-size: 12px; /* 텍스트 크기 축소 */
+    color: #666;
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.card-img-top {
+    border-radius: 10px 10px 0 0; /* 상단 모서리 둥글게 */
+    height: 180px; /* 이미지 고정 높이 */
+    width: 100%; /* 카드의 전체 너비에 맞춤 */
+    object-fit: contain; /* 이미지를 비율 유지하며 카드에 맞춤 */
+    background-color: #f8f8f8; /* 빈 공간을 채우는 배경색 추가 */
+    padding: 10px; /* 이미지와 카드 경계 사이 여백 추가 */
+    display: block;
+    margin: auto; /* 이미지를 카드 중앙 정렬 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .service-cards-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .card {
+        width: 100%; /* 작은 화면에서 카드가 화면 전체를 차지 */
+        max-width: 320px; /* 최대 너비 제한 */
+    }
+}
