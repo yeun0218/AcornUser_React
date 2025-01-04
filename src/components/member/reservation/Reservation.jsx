@@ -76,7 +76,12 @@ function Reservation({ isLogin, logout }) {
 
     const handleInsert = () => {
         if (!selectedReservation.serviceName || !selectedReservation.memberName) {
-            alert("서비스와 직원은 필수 입력 항목입니다.");
+            alert("서비스 및 직원은 필수 입력 항목입니다.");
+            return;
+        }
+
+        if (!selectedReservation.reservationDate || !selectedReservation.reservationTime) {
+            alert("예약 날짜 및 예약 시간은 필수 입력 항목입니다.");
             return;
         }
 
