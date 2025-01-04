@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import defaultServiceImage from "../../../assets/images/logo_black.png"; // 기본 이미지
 
 export default function NoticeDetail() {
   const navigate = useNavigate();
@@ -50,20 +51,24 @@ export default function NoticeDetail() {
       <Container className="mt-5">
         <Row>
           <Col md={6} className="d-flex justify-content-center align-items-center">
-            {notice.noticeImagePath ? (
-              <img
-                src={notice.noticeImagePath}
-                alt="공지 이미지"
-                style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "cover" }}
-              />
-            ) : (
-              <div style={{ fontSize: "1.2rem", color: "#888" }}>이미지 없음</div>
-            )}
+            <img
+              src={
+                notice.noticeImagePath && notice.noticeImagePath.trim()
+                  ? notice.noticeImagePath
+                  : defaultServiceImage
+              }
+              alt="공지 이미지"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "400px",
+                objectFit: "cover",
+              }}
+            />
           </Col>
           <Col md={6}>
             <h2 className="mb-4">{notice.noticeTitle}</h2>
             <p>{notice.noticeContent}</p>
-            <p className="text-muted">작성일: {notice.noticeReg}</p>
+            <p className="text-muted">작성일: {new Date(notice.noticeReg).toLocaleDateString()}</p>
           </Col>
         </Row>
 
