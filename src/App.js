@@ -4,6 +4,7 @@ import AppRoutes from "./routes/AppRoutes";
 import Header from "./components/common/Header";
 import axios from "axios";
 import Cookies from 'js-cookie';
+import ThemeCustomization from "./themes";
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false); // 로그인 상태

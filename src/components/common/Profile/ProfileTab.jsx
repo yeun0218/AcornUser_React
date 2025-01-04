@@ -35,72 +35,72 @@ const ReadOnlyTextField = styled(TextField)({
   },
 });
 
-// AdminMypage Component
-const AdminMypage = () => {
-  const [adminData, setAdminData] = useState(null);
+// Mypage Component
+const Mypage = () => {
+  const [customer, setCustomer] = useState(null);
 
   useEffect(() => {
-    const fetchAdminData = async () => {
+    const fetchCustomer = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/admin/mypage', {
+        const response = await axios.get('http://localhost:8080/customer/mypage', {
           withCredentials: true,
         });
-        setAdminData(response.data);
+        setCustomer(response.data);
       } catch (error) {
-        console.error('Admin 데이터 로딩 중 오류:', error);
+        console.error('Customer 데이터 로딩 중 오류:', error);
       }
     };
 
-    fetchAdminData();
+    fetchCustomer();
   }, []);
 
-  if (!adminData) return <div>로딩 중...</div>;
+  if (!customer) return <div>로딩 중...</div>;
 
   return (
     <Paper elevation={3} sx={{ maxWidth: 800, margin: 'auto', p: 4 }}>
       <Typography variant="h5" align="center" sx={{ color: '#1976d2', marginBottom: 3 }}>
-        어드민 마이페이지
+        마이페이지
       </Typography>
       <Grid container spacing={3} alignItems="center">
         <Grid item xs={4}>
           <Avatar
-            src="/path/to/admin-profile-image.jpg"
+            src="/path/to/customer-profile-image.jpg"
             sx={{ width: 128, height: 128, margin: 'auto' }}
           />
         </Grid>
         <Grid item xs={8}>
           <form>
             <ReadOnlyTextField
-              label="관리자 ID"
-              name="adminId"
-              value={adminData.adminId}
+              label="고객 ID"
+              name="customerShopid"
+              value={customer.customerShopid}
               fullWidth
               margin="normal"
               InputProps={{ readOnly: true }}
               disabled
             />
             <ReadOnlyTextField
-              label="관리자 이름"
-              name="adminName"
-              value={adminData.adminName}
+              label="고객 이름"
+              name="customerName"
+              value={customer.customerName}
               fullWidth
               margin="normal"
               InputProps={{ readOnly: true }}
               disabled
             />
             <ReadOnlyTextField
-              label="관리자 이메일"
-              name="adminEmail"
-              value={adminData.adminEmail}
+              label="고객 이메일"
+              name="customerMail"
+              value={customer.customerMail}
               fullWidth
               margin="normal"
               InputProps={{ readOnly: true }}
               disabled
             />
             <ReadOnlyTextField
-              label="관리자 연락처"
-              name="adminPhone"
-              value={adminData.adminPhone}
+              label="고객 연락처"
+              name="customerTel"
+              value={customer.customerTel}
               fullWidth
               margin="normal"
               InputProps={{ readOnly: true }}
@@ -145,7 +145,7 @@ export default function ProfileTab() {
     <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32 } }}>
       <ListItemButton
         selected={selectedIndex === 0}
-        onClick={() => handleListItemClick(0, '/main/admin/mypage/update')}
+        onClick={() => handleListItemClick(0, '/main/mypage/update')}
       >
         <ListItemIcon>
           <EditOutlined />
@@ -155,7 +155,7 @@ export default function ProfileTab() {
 
       <ListItemButton
         selected={selectedIndex === 1}
-        onClick={() => handleListItemClick(1, '/main/admin/mypage/view')}
+        onClick={() => handleListItemClick(1, '/main/mypage/view')}
       >
         <ListItemIcon>
           <UserOutlined />

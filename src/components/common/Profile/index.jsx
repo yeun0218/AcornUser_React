@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
@@ -22,9 +21,9 @@ import Box from '@mui/material/Box';
 // project import
 import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';
-import Avatar from 'components/@extended/Avatar';
-import MainCard from 'components/MainCard';
-import Transitions from 'components/@extended/Transitions';
+import Avatar from '../../@extended/Avatar';
+import MainCard from '../../MainCard';
+import Transitions from '../../@extended/Transitions';
 
 // assets
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
@@ -33,34 +32,32 @@ import UserOutlined from '@ant-design/icons/UserOutlined';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
-  return (
-    <div role="tabpanel" hidden={value !== index} id={`profile-tabpanel-${index}`} aria-labelledby={`profile-tab-${index}`} {...other}>
-      {value === index && children}
-    </div>
-  );
-}
-
-function a11yProps(index) {
-  return {
-    id: `profile-tab-${index}`,
-    'aria-controls': `profile-tabpanel-${index}`
-  };
-}
-
-// ==============================|| HEADER CONTENT - PROFILE ||============================== //
+    return (
+      <div role="tabpanel" hidden={value !== index} id={`profile-tabpanel-${index}`} aria-labelledby={`profile-tab-${index}`} {...other}>
+        {value === index && children}
+      </div>
+    );
+  }
+  
+  function a11yProps(index) {
+    return {
+      id: `profile-tab-${index}`,
+      'aria-controls': `profile-tabpanel-${index}`
+    };
+  }
 
 export default function Profile() {
-  const [adminData, setAdminData] = useState(null); // Admin data state
+  const [userData, setUserData] = useState(null); // 회원 데이터 상태
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/admin/mypage', {
+        const response = await axios.get('http://localhost:8080/customer/mypage', {
           withCredentials: true // Include cookies for cross-domain requests
         });
-        setAdminData(response.data);
+        setUserData(response.data);
       } catch (error) {
-        console.error('Error loading admin data:', error);
+        console.error('Error loading user data:', error);
       }
     };
     fetchData();
@@ -100,10 +97,10 @@ export default function Profile() {
       });
   };
 
-  const updateAdminName = (newName) => {
-    setAdminData((prevData) => ({
+  const updateCustomerName = (newName) => {
+    setUserData((prevData) => ({
       ...prevData,
-      adminName: newName,
+      CustomerShopid: newName,
     }));
   };
 
@@ -128,7 +125,7 @@ export default function Profile() {
         <Stack direction="row" spacing={1.25} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" size="sm" />
           <Typography variant="subtitle1" sx={{ textTransform: 'capitalize' }}>
-            {adminData ? adminData.adminId : 'Loading...'}
+            {userData ? userData.CustomerShopid : 'Loading...'}
           </Typography>
         </Stack>
       </ButtonBase>
@@ -163,7 +160,7 @@ export default function Profile() {
                           <Avatar alt="profile user" sx={{ width: 32, height: 32 }} />
                           <Stack>
                             <Typography variant="h6">
-                              {adminData ? adminData.adminId : 'Loading...'}
+                              {userData ? userData.CustomerShopid : 'Loading...'}
                             </Typography>
                           </Stack>
                         </Stack>
@@ -207,7 +204,7 @@ export default function Profile() {
                     </Tabs>
                   </Box>
                   <TabPanel value={value} index={0} dir={theme.direction}>
-                    <ProfileTab updateAdminName={updateAdminName} />
+                    <ProfileTab updateAdminName={updateCustomerName} />
                   </TabPanel>
                   <TabPanel value={value} index={1} dir={theme.direction}>
                     <SettingTab />
@@ -221,5 +218,3 @@ export default function Profile() {
     </Box>
   );
 }
-
-TabPanel.propTypes = { children: PropTypes.node, value: PropTypes.number, index: PropTypes.number, other: PropTypes.any };

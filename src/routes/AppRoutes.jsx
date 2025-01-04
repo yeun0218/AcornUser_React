@@ -6,7 +6,7 @@ import Main from "../components/member/main/Main.jsx";
 import LoginPage from "../components/member/login/Login.jsx";
 import RegisterPage from "../components/member/register/Register.jsx";
 import FindIdPass from "../components/member/login/FindIdPass.jsx";
-import MyAccount from "../components/member/mypage/MyAccount.jsx";
+//import MyAccount from "../components/member/mypage/MyAccount.jsx";
 import Stylist from "../components/member/stylist/Stylist.jsx";
 
 // 관리자 관련 컴포넌트

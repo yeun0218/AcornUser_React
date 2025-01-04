@@ -4,9 +4,33 @@ import { Navbar, Container, Button, Nav, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/AcornBeauty_logo_transparent.png";
 import { LOGO_IMG } from "../../assets/styles/MainStyle.jsx";
+import Profile from './Profile';
+import axios from "axios";
 
 const Header = ({ isLogin, logout }) => {
   const navigate = useNavigate();
+  const [customerShopid, setCustomerShopid] = useState(null);
+
+  useEffect(() => {
+    if (isLogin) {
+      const fetchCustomerData = async () => {
+        try {
+          const response = await axios.get('http://localhost:8080/customer/mypage', {
+            withCredentials: true,
+          });
+          if (response.data && response.data.customerShopid) {
+            setCustomerShopid(response.data.customerShopid);
+          } else {
+            console.warn("CustomerShopid is missing in the response.");
+          }
+        } catch (error) {
+          console.error("Error fetching customerShopid:", error);
+        }
+      };
+  
+      fetchCustomerData();
+    }
+  }, [isLogin]);
 
   return (
       <>
@@ -46,7 +70,7 @@ const Header = ({ isLogin, logout }) => {
                   예약하기
                 </Link>
               </Nav>
-              {!isLogin ? (
+              {/* {!isLogin ? (
                   <Button
                       className="btn btn-light btn-outline-secondary px-3"
                       onClick={() => {
@@ -62,7 +86,34 @@ const Header = ({ isLogin, logout }) => {
                   >
                     로그아웃
                   </Button>
+              )} */}
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              {isLogin ? (
+                <>
+                  {/* customerShopid 표시 */}
+                  <span style={{ fontWeight: "bold", color: "#555" }}>
+                    {customerShopid ? `${customerShopid}님` : "Loading..."}
+                  </span>
+                  {/* Profile 컴포넌트 */}
+                  <Profile />
+                  {/* 로그아웃 버튼 */}
+                  <Button
+                    className="btn btn-light btn-outline-secondary px-3"
+                    onClick={logout}
+                  >
+                    로그아웃
+                  </Button>
+                </>
+              ) : (
+                // 로그인 버튼
+                <Button
+                  className="btn btn-light btn-outline-secondary px-3"
+                  onClick={() => navigate("/login")}
+                >
+                  로그인
+                </Button>
               )}
+            </div>
             </Navbar.Collapse>
           </Container>
         </Navbar>
