@@ -44,7 +44,6 @@ const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
             <Route path="/register" element={!isLogin ? <RegisterPage /> : <Navigate to="/" />} />
             <Route path="/findidpass" element={<FindIdPass />} />
             <Route path="/acornshop" element={<AcornShop />} />
-            <Route path="/product/:productCode" element={<Product />} />
             <Route path="/product/:productCode" element={<ProductDetail />} />
             {/* <Route path="/mypage" element={isLogin ? <MyAccount /> : <Navigate to="/login" />} /> */}
             <Route path="/mypage" element={<Mypage />} />
