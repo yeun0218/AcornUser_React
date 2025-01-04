@@ -10,13 +10,15 @@ import FindIdPass from "../components/member/login/FindIdPass.jsx";
 import Stylist from "../components/member/stylist/Stylist.jsx";
 
 // 관리자 관련 컴포넌트
-import AdminLogin from "../components/manager/login/ManagerLogin.jsx";
-import MemAdmin from "../components/manager/member/ManagerMember.jsx";
-import NoticeAdmin from "../components/manager/notice/ManagerNotice.jsx";
+// import AdminLogin from "../components/manager/login/ManagerLogin.jsx";
+// import MemAdmin from "../components/manager/member/ManagerMember.jsx";
+// import NoticeAdmin from "../components/manager/notice/ManagerNotice.jsx";
 import Reservation from "../components/member/reservation/Reservation";
 import Notice from "../components/member/notice/Notice.jsx";
 import NoticeDetail from "../components/member/notice/NoticeDetail.jsx";
 import About from "../components/member/aboutshop/About.jsx";
+import AcornShop from "../components/member/aboutshop/AcornShop.jsx";
+import Product from "../components/member/product/product.jsx";
 import Mypage from "../components/member/mypage/MyPage.jsx";
 import Service from "../components/member/aboutservice/Service.jsx";
 const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
@@ -29,6 +31,8 @@ const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
       <Route path="/login" element={!isLogin ? <LoginPage setIsLogin={setIsLogin}/> : <Navigate to="/" />} />
       <Route path="/register" element={!isLogin ? <RegisterPage /> : <Navigate to="/" />} />
       <Route path="/findidpass" element={<FindIdPass />} />
+      <Route path="/acornshop" element={<AcornShop />} />
+      <Route path="/product/:productCode" element={<Product />} />
       {/* <Route path="/mypage" element={isLogin ? <MyAccount /> : <Navigate to="/login" />} /> */}
       <Route path="/mypage" element={<Mypage />} />
       <Route path="/stylist" element={<Stylist />} />
