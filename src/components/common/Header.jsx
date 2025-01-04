@@ -57,7 +57,7 @@ const Header = ({ isLogin, logout }) => {
                     서비스 소개
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Link to="/cart" className="nav-link">
+                <Link to="/acornshop" className="nav-link">
                   Acorn Shop
                 </Link>
                 <Link to="/mypage" className="nav-link">
