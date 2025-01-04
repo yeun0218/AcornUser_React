@@ -35,6 +35,7 @@ const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
         <Route path="/service" element={<Service />} />
 
       <Route path="/reservation" element={!isLogin ? <LoginPage setIsLogin={setIsLogin}/> : <Reservation />} />
+        <Route path="/reservation/:memberId" element={!isLogin ? <LoginPage setIsLogin={setIsLogin}/> : <Reservation />} />
       {/* <Route path="/reservation" element={<Reservation />} /> */}
       <Route path="/about" element={<About />} />
       <Route path="/notice" element={<Notice />} />

@@ -116,3 +116,34 @@
         width: 100%;
     }
 }
+
+/* 예약하기 버튼 스타일 */
+.designer-reservation-btn {
+    position: absolute;
+    bottom: 15px; /* 카드 하단에 위치 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    padding: 10px;
+    background-color: #007bff; /* 기본 버튼 색상 */
+    color: white; /* 버튼 글씨 색상 */
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0; /* 초기 상태에서 숨김 */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.designer-card:hover .designer-reservation-btn {
+    opacity: 1; /* 호버 시 버튼 표시 */
+    visibility: visible; /* 버튼 활성화 */
+    transform: translateX(-50%) translateY(0); /* 부드럽게 나타남 */
+}
+
+.designer-reservation-btn:hover {
+    background-color: #0056b3; /* 호버 시 버튼 색상 변경 */
+}
