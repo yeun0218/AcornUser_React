@@ -1,0 +1,144 @@
+.product-detail {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+}
+
+.thumbnail-container {
+    display: flex;
+    gap: 10px;
+}
+
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff4d4f;
+}
+
+
+/* 상품금액 합계 박스 */
+/* 상품금액 합계 */
+.total-price {
+    display: flex; /* 한 줄 정렬 */
+    justify-content: space-between; /* 좌우 간격 균형 */
+    align-items: center; /* 세로 중앙 정렬 */
+    margin-top: 15px; /* 상단 여백 */
+    font-size: 18px; /* 텍스트 크기 */
+    font-weight: bold;
+    color: #333; /* 기본 텍스트 색상 */
+}
+
+.total-price span {
+    margin: 0; /* 텍스트 간 간격 제거 */
+}
+
+.total-price-amount {
+    color: #ff4d4f; /* 강조된 금액 색상 */
+    font-size: 22px; /* 금액 글씨 크기 */
+    font-weight: bold;
+}
+
+.price-divider {
+    width: 100%;
+    height: 2px;
+    background-color: #ff4d4f;
+    margin-top: 5px;
+}
+
+/* 버튼 그룹 스타일 */
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.styled-cart-btn,
+.styled-buy-btn {
+    width: 120px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.styled-cart-btn {
+    background-color: white;
+    color: #ff4d4f;
+    border: 2px solid #ff4d4f;
+}
+
+.styled-buy-btn {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+}
+
+.styled-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.wishlist-btn {
+    font-size: 24px;
+    color: #ccc;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.wishlist-btn.liked {
+    color: #ff4d4f; /* 좋아요 눌렀을 때 색상 */
+}
+
+.quantity-control {
+    display: flex;
+    flex-direction: column;
+}
+
+.quantity-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-input {
+    width: 60px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.quantity-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    cursor: pointer;
+}
