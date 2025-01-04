@@ -8,7 +8,7 @@ import RegisterPage from "../components/member/register/Register.jsx";
 import FindIdPass from "../components/member/login/FindIdPass.jsx";
 //import MyAccount from "../components/member/mypage/MyAccount.jsx";
 import Stylist from "../components/member/stylist/Stylist.jsx";
-
+import ProductDetail from "../components/member/product/ProductDetail.jsx";
 // 관리자 관련 컴포넌트
 // import AdminLogin from "../components/manager/login/ManagerLogin.jsx";
 // import MemAdmin from "../components/manager/member/ManagerMember.jsx";
@@ -32,7 +32,7 @@ const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
       <Route path="/register" element={!isLogin ? <RegisterPage /> : <Navigate to="/" />} />
       <Route path="/findidpass" element={<FindIdPass />} />
       <Route path="/acornshop" element={<AcornShop />} />
-      <Route path="/product/:productCode" element={<Product />} />
+      <Route path="/product/:productCode" element={<ProductDetail />} />
       {/* <Route path="/mypage" element={isLogin ? <MyAccount /> : <Navigate to="/login" />} /> */}
       <Route path="/mypage" element={<Mypage />} />
       <Route path="/stylist" element={<Stylist />} />
