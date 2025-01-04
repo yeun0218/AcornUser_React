@@ -4,18 +4,18 @@
     font-family: Arial, sans-serif;
 } */
 
-.tabs-container h1 {
+.designer-tabs-container h1 {
     font-size: 32px;
     font-weight: bolder;
 }
 
-.tab-buttons {
+.designer-tab-buttons {
     display: flex;
     gap: 4px;
     margin-top: 14px;
 }
 
-.tab-buttons button {
+.designer-tab-buttons button {
     padding: 10px 20px;
     cursor: pointer;
     border: none;
@@ -24,49 +24,49 @@
     transition: background-color 0.3s;
 }
 
-.tab-buttons button:hover {
+.designer-tab-buttons button:hover {
     color: white;
     background-color: #007bff;
 }
 
-.tab-buttons .active {
+.designer-tab-buttons .active {
     font-weight: bold;
     background-color: #007bff;
     color: white;
 }
 
-.tab-content {
+.designer-tab-content {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 0px 0px 10px 10px;
     background-color: #f9f9f9;
 }
 
-.tab-content h2 {
+.designer-tab-content h2 {
     margin-top: 0;
     font-weight: bold;
     font-size: 24px;
 }
 
-.tab-content p {
+.designer-tab-content p {
     margin: 5px 0 0;
 }
 
 /* Tab content area */
-.tab-content {
+.designer-tab-content {
     padding: 30px;
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #f9f9f9;
 }
 
-.tab-content h3 {
+.designer-tab-content h3 {
     font-size: 24px;
     margin-top: 0;
     font-weight: bold;
 }
 
-.tab-content p {
+.designer-tab-content p {
     margin: 5px 0;
 }
 
@@ -78,26 +78,30 @@
     margin-top: 20px;
 }
 
-.card {
+.designer-card {
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card-img-top {
+.designer-card-img-top {
+    height: 280px; /* 이미지 높이를 카드에 맞춤 */
+    width: 100%; /* 이미지 너비를 카드에 맞춤 */
+    object-fit: cover; /* 비율을 유지하며 카드 크기에 맞춤 */
+    display: block;
     border-radius: 10px 10px 0 0;
 }
 
-.card-body {
+.designer-card-body {
     padding: 15px;
 }
 
-.card-title {
+.designer-card-title {
     font-size: 18px;
     font-weight: bold;
 }
 
-.card-text {
+.designer-card-text {
     font-size: 14px;
     color: #666;
 }

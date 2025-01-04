@@ -33,7 +33,7 @@ const DesignerTab = () => {
     };
 
     return (
-        <Container className="tabs-container">
+        <Container className="designer-tabs-container">
             <Tab.Container id="designer-tabs" activeKey={key} onSelect={handleTabSelect}>
                 <Row>
                     <Col sm={12}>
@@ -52,22 +52,22 @@ const DesignerTab = () => {
                 <Row>
                     <Col sm={12}>
                         {/* Tab Content */}
-                        <Tab.Content className="tab-content">
+                        <Tab.Content className="designer-tab-content">
                             {tabs.map((position) => (
                                 <Tab.Pane eventKey={position} key={position}>
                                     <h3>{position}</h3>
                                     {/* Designer Cards */}
                                     <div className="designer-cards">
                                         {designers.filter(designer => designer.memberJob === position).map((designer) => (
-                                            <div className="card" style={{ width: '18rem' }} key={designer.memberId}>
+                                            <div className="designer-card" style={{ width: '18rem' }} key={designer.memberId}>
                                                 <img
                                                     src={designer.image || designerImage} // 디자이너 이미지 없으면 기본 이미지
-                                                    className="card-img-top"
+                                                    className="designer-card-img-top"
                                                     alt={designer.memberName}
                                                 />
-                                                <div className="card-body">
-                                                    <h5 className="card-title">{designer.memberName} {designer.memberJob}</h5>
-                                                    <p className="card-text">전화: {designer.memberTel}</p>
+                                                <div className="designer-card-body">
+                                                    <h5 className="designer-card-title">{designer.memberName} {designer.memberJob}</h5>
+                                                    <p className="designer-card-text">전화: {designer.memberTel}</p>
                                                 </div>
                                             </div>
                                         ))}

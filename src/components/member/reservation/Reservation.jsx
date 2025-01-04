@@ -3,6 +3,8 @@ import Header from "../../common/Header.jsx";
 import ReservationSuccess from './ReservationSuccess';
 import TimePickerComponent from "./Picker/TimePickerComponent";
 import axios from "axios";
+import './reservationform.css';
+import ContactUsReservation from "./ContactUs_reservation";
 
 function Reservation({ isLogin, logout }) {
     const [state, setState] = useState({});
@@ -109,7 +111,7 @@ function Reservation({ isLogin, logout }) {
         <div>
             {/*<Header isLogin={isLogin} logout={logout} />*/}
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-                <div style={{ width: '100%', maxWidth: '600px' }}>
+                <div style={{ width: '100%', maxWidth: '600px' }} className="form-container">
                     <h1>예약하기</h1>
 
                     <form>
@@ -202,6 +204,8 @@ function Reservation({ isLogin, logout }) {
             {showSuccessModal && (
                 <ReservationSuccess setShowSuccessModal={setShowSuccessModal} />
             )}
+
+            <ContactUsReservation />
         </div>
     );
 }
