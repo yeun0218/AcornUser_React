@@ -3,7 +3,6 @@ import { Navbar, Row } from "react-bootstrap";
 
 const Footer = () => {
   return (
-    <>
       <Navbar
         className="navbar navbar-expand-sm justify-content-center"
         fixed="bottom"
@@ -12,7 +11,6 @@ const Footer = () => {
       >
         Acorn-Beauty &copy; 2024
       </Navbar>
-    </>
   );
 };
 

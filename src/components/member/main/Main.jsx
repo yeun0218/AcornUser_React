@@ -21,22 +21,15 @@ const Main = ({ isLogin, logout, no, isAdmin }) => {
 
   return (
     <>
-      {alert === true ? (
-        <>
-          <EventAlert />
-        </>
-      ) : null}
+      {/*{alert === true ? (*/}
+      {/*  <>*/}
+      {/*    <EventAlert />*/}
+      {/*  </>*/}
+      {/*) : null}*/}
 
       {/* <Header isLogin={isLogin} logout={logout} /> */}
 
       <SliderBanner />
-
-      <CONTAINER_TAB>
-        <TabContent />
-      </CONTAINER_TAB>
-
-      {/* <SocialBanner /> */}
-
       <Footer isLogin={isLogin} logout={logout} />
     </>
   );
