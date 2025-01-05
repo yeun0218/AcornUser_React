@@ -97,6 +97,13 @@ const LoginPage = ({isLogin, setIsLogin, logout}) => {
     }
   };
 
+  // Enter 키로 로그인
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && isIdValid && password) {
+      handleLogin(e); // Enter 키로 로그인
+    }
+  };
+
   return (
     <>
       {/* <Header /> */}
@@ -111,6 +118,7 @@ const LoginPage = ({isLogin, setIsLogin, logout}) => {
                 placeholder="아이디"
                 value={customerId}
                 onChange={handleIdChange}
+                onKeyDown={handleKeyDown} // Enter 키 이벤트 추가
               />
               {customerId.length > 0 && (
                 <VALIDDIV className={`message ${isIdValid ? "success" : "error"}`}>
@@ -124,6 +132,7 @@ const LoginPage = ({isLogin, setIsLogin, logout}) => {
                 placeholder="비밀번호"
                 value={password}
                 onChange={handlePasswordChange}
+                onKeyDown={handleKeyDown} // Enter 키 이벤트 추가
               />
             </LDIV2>
           </LDIV4>
