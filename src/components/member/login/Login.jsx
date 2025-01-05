@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
-import Header from "../../common/Header.jsx";
 import Footer from "../../common/Footer.jsx";
 import { KAKAO_AUTH_URL } from "../../../service/kakaologin.js";
-import NaverLogin from "./NaverLogin.jsx";
 import KakaoIMG from "../../../assets/images/kakao_login_large_narrow.png";
 import {
   BORDERDIV,
@@ -24,16 +22,33 @@ import {
   SOCIALDIV,
   VALIDDIV,
   LJOIN,
-} from "../../../assets/styles/LoginStyle.js";
-import { Toast } from "react-bootstrap";
+} from "../../../assets/styles/Login/LoginStyle.js";
+import "../../../assets/styles/Login/LoginStyle.css";
 
-const LoginPage = ({isLogin, setIsLogin, logout}) => {
+const LoginPage = ({ isLogin, setIsLogin, logout }) => {
   const navigate = useNavigate();
   const [customerId, setCustomerId] = useState(""); // 아이디 상태
   const [password, setPassword] = useState(""); // 비밀번호 상태
   const [isIdValid, setIsIdValid] = useState(false); // 아이디 유효성 검증
   const [idMessage, setIdMessage] = useState(""); // 아이디 에러 메시지
   const [isCheck, setIsCheck] = useState(false); // "자동로그인" 체크박스 상태
+
+  // 팝업 상태 관리
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState(""); // 팝업 메시지
+
+  // 팝업 열기
+  const openPopup = (message) => {
+    setPopupMessage(message);
+    setIsPopupOpen(true);
+  };
+
+  // 팝업 닫기
+  const closePopup = (e) => {
+    if (!e || e.type === "click" || (e.type === "keydown" && e.key === "Enter")) {
+      setIsPopupOpen(false);
+    }
+  };
 
   // 아이디 변경 이벤트
   const handleIdChange = (e) => {
@@ -76,6 +91,7 @@ const LoginPage = ({isLogin, setIsLogin, logout}) => {
       if (response.status === 200) {
         // 로그인 성공
         const { token } = response.data;
+
         sessionStorage.setItem("accessToken", token); // 세션 스토리지에 JWT 저장
         setIsLogin(true);
 
@@ -86,14 +102,19 @@ const LoginPage = ({isLogin, setIsLogin, logout}) => {
           Cookies.remove("accessToken");
         }
 
-        alert("로그인 성공!");
-        navigate("/"); // 홈 화면으로 이동
+        openPopup("로그인 성공 ~ 환영합니다 :)");
       } else {
-        alert("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");
+        openPopup("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");
       }
     } catch (error) {
       console.error("로그인 에러:", error);
-      alert("로그인 요청 중 문제가 발생했습니다.");
+      if (error.response?.status === 401) {
+        openPopup("아이디와 비밀번호가 일치하지 않습니다.");
+      } else {
+        const errorMessage =
+          error.response?.data?.message || "로그인 요청 중 문제가 발생했습니다.";
+        openPopup(errorMessage);
+      }
     }
   };
 
@@ -106,7 +127,6 @@ const LoginPage = ({isLogin, setIsLogin, logout}) => {
 
   return (
     <>
-      {/* <Header /> */}
       <br />
       <LDIV>
         <LSPAN>로그인</LSPAN>
@@ -158,7 +178,6 @@ const LoginPage = ({isLogin, setIsLogin, logout}) => {
             <a href={KAKAO_AUTH_URL}>
               <SOCIALBTN src={KakaoIMG} alt="카카오 로그인" />
             </a>
-            {/* <NaverLogin /> */}
           </SOCIALDIV>
 
           <LJOIN onClick={() => navigate("/register")}>회원가입</LJOIN>
@@ -166,6 +185,31 @@ const LoginPage = ({isLogin, setIsLogin, logout}) => {
       </LDIV>
       <br />
       <Footer />
+
+      {/* 팝업 알림 */}
+      {isPopupOpen && (
+        <div
+          className="popup-overlay"
+          onClick={closePopup}
+          tabIndex={0}
+          role="button"
+        >
+          <div className="popup">
+            <div className="popup-content">
+              {popupMessage}
+              <br />
+              <br />
+              <button
+                onClick={closePopup}
+                className="btn btn-primary"
+                onKeyDown={handleKeyDown}
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

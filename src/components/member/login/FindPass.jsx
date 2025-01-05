@@ -29,7 +29,7 @@ const FindPass = (props) => {
     e.preventDefault();
     axios
       .post(process.env.REACT_APP_SPRING_IP + "sendmail", null, {
-        params: { member_email: email, member_name: name, member_phone: phone },
+        params: {customer_mail: email, customer_name: name, customer_tel: phone },
       })
       .then((res) => {
         console.log(res);
@@ -54,7 +54,7 @@ const FindPass = (props) => {
             <input
               type="email"
               placeholder="이메일"
-              name="member_email"
+              name="customer_mail"
               value={email}
               onChange={handleInputId}
               className="form-control"
@@ -68,7 +68,7 @@ const FindPass = (props) => {
             <input
               type="text"
               placeholder="이름"
-              name="member_name"
+              name="customer_name"
               value={name}
               onChange={handleInputName}
               className="form-control"
@@ -82,7 +82,7 @@ const FindPass = (props) => {
             <input
               type="text"
               placeholder="전화번호"
-              name="member_phone"
+              name="customer_tel"
               value={phone}
               onChange={handleInputPhone}
               className="form-control"

@@ -6,7 +6,7 @@ export const RDIV = styled.div`
   margin: 2rem auto;
   padding: 2.5rem;
   border: 0px;
-  background-color: #f8eedc;
+  background-color:rgb(245, 239, 228);
   border-radius: 1rem;
 `;
 

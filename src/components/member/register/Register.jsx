@@ -16,7 +16,7 @@ import {
   RVALIDDIV,
   RZINPUT,
 } from "../../../assets/styles/RegisterStyle.js";
-import { LOGINBTN } from "../../../assets/styles/LoginStyle.js";
+import { LOGINBTN } from "../../../assets/styles/Login/LoginStyle.js";
 
 const RegisterPage = (props) => {
   const [customerShopid, setCustomerShopid] = useState(""); // 아이디
@@ -114,7 +114,6 @@ const RegisterPage = (props) => {
 
   return (
     <>
-      <Header />
       <RDIV>
         <h2 style={{ fontWeight: "700", borderBottom: "3px solid #5e514d", padding: "20px", color: "#5e514d" }}>
           회원가입

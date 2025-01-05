@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NaverBTN from "../../../assets/images/btnG_완성형.png";
-import { SOCIALBTN } from "../../../assets/styles/LoginStyle.js";
+import { SOCIALBTN } from "../../../assets/styles/Login/LoginStyle.js";
 
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
 

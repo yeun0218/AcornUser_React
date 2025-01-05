@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import FindPass from "./FindPass.jsx";
 import Header from "../../common/Header.jsx";
 import Footer from "../../common/Footer.jsx";
-import { LDIVV } from "../../../assets/styles/LoginStyle.js";
+import { LDIVV } from "../../../assets/styles/Login/LoginStyle.js";
 import { P_STRONG, P_SMALL } from "../../../assets/styles/SubStyle.js";
 import { FORM } from "../../../assets/styles/PaymentStyle.js";
 import { BROWN_BTN2 } from "../../../assets/styles/NoticeStyle.js";

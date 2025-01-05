@@ -33,7 +33,7 @@ export const RINPUT = styled.input`
   border-right: none;
   border-left: none;
   border-bottom: 0.1rem solid gray;
-  background-color: #f8eedc;
+  background-color:rgb(255, 250, 242);
 `;
 
 /* 회원가입 button 감싸는 div */
