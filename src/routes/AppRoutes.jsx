@@ -18,7 +18,6 @@ import Notice from "../components/member/notice/Notice.jsx";
 import NoticeDetail from "../components/member/notice/NoticeDetail.jsx";
 import About from "../components/member/aboutshop/About.jsx";
 import AcornShop from "../components/member/aboutshop/AcornShop.jsx";
-import Product from "../components/member/product/product.jsx";
 import Mypage from "../components/member/mypage/MyPage.jsx";
 import Service from "../components/member/aboutservice/Service.jsx";
 const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
