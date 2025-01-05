@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Pagination from "../../common/Pagination.jsx"; // 페이지네이션 컴포넌트
-import "./Notice.css";
+import "../../../assets/styles/Notice/Notice.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import defaultServiceImage from "../../../assets/images/logo_black.png"; // 기본 이미지
 

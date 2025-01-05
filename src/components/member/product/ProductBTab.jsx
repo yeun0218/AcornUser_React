@@ -92,25 +92,25 @@ const ProductBTab = () => {
               {tabs.map((tabName) => (
                 <Tab.Pane eventKey={tabName} key={tabName}>
                   {currentItems.length > 0 ? (
-                    <div className="d-flex flex-wrap justify-content-center">
-                      {currentItems.map((product) => (
-                        <div
-                          className="product-card card"
-                          style={{ width: "18rem", margin: "10px", cursor: "pointer" }}
-                          key={product.productCode}
-                          onClick={() => handleProductClick(product.productCode)} // 클릭 시 이동
-                        >
-                          <img
-                            src={product.productImagePath || "/default-product.png"}
-                            className="card-img-top"
-                            alt={product.productName}
-                          />
-                          <div className="card-body">
-                            <h5 className="card-title">{product.productName}</h5>
-                          </div>
+                    <div className="d-flex flex-wrap justify-content-start">
+                    {currentItems.map((product) => (
+                      <div
+                        className="product-card card"
+                        style={{ width: '18rem', margin: '10px', cursor: 'pointer' }}
+                        key={product.productCode}
+                        onClick={() => handleProductClick(product.productCode)}
+                      >
+                        <img
+                          src={product.productImagePath || '/default-product.png'}
+                          className="card-img-top"
+                          alt={product.productName}
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{product.productName}</h5>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
+                  </div>                  
                   ) : (
                     <p className="text-center mt-4">등록된 상품이 없습니다.</p>
                   )}
