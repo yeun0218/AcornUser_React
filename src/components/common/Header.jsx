@@ -31,7 +31,11 @@ const Header = ({ isLogin, logout }) => {
       fetchCustomerData();
     }
   }, [isLogin]);
-
+  // 로그아웃 핸들러 수정
+  const handleLogout = () => {
+    logout(); // 로그아웃 처리 함수 호출
+    navigate("/"); // 메인 페이지로 이동
+  };
   return (
       <>
         <Navbar bg="light" expand="lg">
@@ -99,7 +103,7 @@ const Header = ({ isLogin, logout }) => {
                   {/* 로그아웃 버튼 */}
                   <Button
                     className="btn btn-light btn-outline-secondary px-3"
-                    onClick={logout}
+                    onClick={handleLogout}
                   >
                     로그아웃
                   </Button>
