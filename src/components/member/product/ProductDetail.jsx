@@ -211,7 +211,6 @@ function ProductDetail() {
                     </div>
 
                     {/* 상품금액 합계 */}
-                    {/* 상품금액 합계 */}
                     <div className="total-price">
                         <h5>상품금액 합계</h5>
                         <span className="total-price-amount">
