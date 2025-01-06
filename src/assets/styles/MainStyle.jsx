@@ -9,12 +9,12 @@ export const LOGO_IMG = styled.img`
 export const CONTAINER_TAB = styled.div `
   width: 1020px;
   margin: auto;
-  padding-bottom: 5rem;
+  padding-bottom: 3rem;
 `
 export const SLIDER = styled.div `
   /* 슬라이더가로스크롤바 생기는 문제 */
   overflow: hidden;
-  padding-bottom: 7rem; /* 패딩 안주면 dot 버튼 사라짐 */
+  padding-bottom: 3rem; /* 패딩 안주면 dot 버튼 사라짐 */
 `
 export const SLIDEIMG = styled.img `
   width: 100%;
