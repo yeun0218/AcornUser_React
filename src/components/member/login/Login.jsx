@@ -6,26 +6,13 @@ import Footer from "../../common/Footer.jsx";
 import { KAKAO_AUTH_URL } from "../../../service/kakaologin.js";
 import KakaoIMG from "../../../assets/images/kakao_login_large_narrow.png";
 import {
-  BORDERDIV,
-  CHKDIV,
-  CHKINPUT,
-  LDIV,
-  LDIV2,
-  LDIV3,
-  LDIV4,
-  LINPUT,
-  LOGINBTN,
-  LOGINDIV,
-  LSPAN,
-  REGISTERLINK,
-  SOCIALBTN,
-  SOCIALDIV,
-  VALIDDIV,
-  LJOIN,
+  BORDERDIV,CHKDIV,CHKINPUT,LDIV,LDIV2,LDIV3,LDIV4,
+  LINPUT,LOGINBTN,LOGINDIV,
+  LSPAN,REGISTERLINK,SOCIALBTN,SOCIALDIV,VALIDDIV,LJOIN,
 } from "../../../assets/styles/Login/LoginStyle.js";
 import "../../../assets/styles/Login/LoginStyle.css";
 
-const LoginPage = ({ isLogin, setIsLogin, logout }) => {
+const LoginPage = ({ isLogin, setIsLogin, logout}) => {
   const navigate = useNavigate();
   const [customerId, setCustomerId] = useState(""); // 아이디 상태
   const [password, setPassword] = useState(""); // 비밀번호 상태
@@ -87,14 +74,13 @@ const LoginPage = ({ isLogin, setIsLogin, logout }) => {
       );
 
       console.log("응답 데이터:", response.data); // 응답 로그
-
+      
       if (response.status === 200) {
         // 로그인 성공
         const { token } = response.data;
 
         sessionStorage.setItem("accessToken", token); // 세션 스토리지에 JWT 저장
         setIsLogin(true);
-
         // "자동로그인" 상태라면 쿠키 저장
         if (isCheck) {
           Cookies.set("accessToken", token, { expires: 7 });
@@ -102,7 +88,8 @@ const LoginPage = ({ isLogin, setIsLogin, logout }) => {
           Cookies.remove("accessToken");
         }
 
-        openPopup("로그인 성공 ~ 환영합니다 :)");
+        openPopup("로그인 성공 ~ 환영합니다 :)")
+
       } else {
         openPopup("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");
       }

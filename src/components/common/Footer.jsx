@@ -7,7 +7,7 @@ const Footer = () => {
         className="navbar navbar-expand-sm justify-content-center"
         fixed="bottom"
         bg="dark"
-        style={{ color: "white" }}
+        style={{ color: "white", margin: 0, padding: 0, height: "auto" }}
       >
         Acorn-Beauty &copy; 2024
       </Navbar>
