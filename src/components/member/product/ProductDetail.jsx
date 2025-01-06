@@ -5,7 +5,6 @@ import axios from "axios";
 import "../../../assets/styles/Product/ProductDetail.css";
 import { useCart } from "../cart/CartContext";
 import Popup from "../../../assets/styles/Popup"
-import { jwtDecode } from "jwt-decode";
 
 function ProductDetail() {
     const { productCode } = useParams(); // URL에서 productCode 가져오기
