@@ -15,6 +15,7 @@ function ProductDetail() {
     const [quantity, setQuantity] = useState(1); // 상품 수량
     const [totalPrice, setTotalPrice] = useState(0); // 총 상품금액
     const [isLiked, setIsLiked] = useState(false); // 좋아요 상태
+    const [customerId, setCustomerId] = useState(null); // 사용자 ID
 
     // 장바구니
     const { addItemToCart } = useCart();
@@ -26,6 +27,47 @@ function ProductDetail() {
         // sessionStorage에서 "accessToken" 키가 존재하는지 확인
         return !!sessionStorage.getItem("accessToken");
     };
+
+    // 고객 데이터 및 좋아요 상태 가져오기
+    useEffect(() => {
+        const fetchCustomerDataAndWishlist = async () => {
+            if (!isLoggedIn()) {
+                return; // 로그인되지 않은 경우 데이터를 가져오지 않음
+            }
+
+            try {
+                // 고객 데이터 가져오기
+                const customerResponse = await fetch("http://localhost:8080/wishlist/user", {
+                    method: "GET",
+                    credentials: "include",
+                });
+
+                if (!customerResponse.ok) {
+                    throw new Error("Failed to fetch customer data");
+                }
+
+                const customerData = await customerResponse.json();
+                setCustomerId(customerData.customerId); // customerId 설정
+
+                // 좋아요 상태 확인
+                const wishlistResponse = await fetch(
+                    `http://localhost:8080/wishlist/check?customerId=${customerData.customerId}&productCode=${productCode}`
+                );
+
+                if (!wishlistResponse.ok) {
+                    throw new Error("Failed to fetch wishlist status");
+                }
+
+                const isLikedData = await wishlistResponse.json();
+                setIsLiked(isLikedData); // 좋아요 상태 설정
+            } catch (err) {
+                console.error("Error fetching customer data or wishlist:", err);
+            }
+        };
+
+        fetchCustomerDataAndWishlist();
+    }, [productCode]);
+
 
     // 상품 데이터 가져오기
     useEffect(() => {
@@ -88,26 +130,36 @@ function ProductDetail() {
         }
     };
 
-    // 좋아요 버튼 클릭 핸들러
-    const toggleLike = () => {
+
+
+    // 좋아요 토글
+    const toggleLike = async () => {
+        // 로그인 여부 확인
         if (!isLoggedIn()) {
             alert("로그인이 필요합니다.");
             navigate("/login"); // 로그인 페이지로 이동
             return;
         }
 
-        const savedLikes = JSON.parse(localStorage.getItem("likedProducts")) || {};
-        savedLikes[productCode] = !isLiked; // 현재 상품의 좋아요 상태 토글
-        localStorage.setItem("likedProducts", JSON.stringify(savedLikes)); // 저장
-
-        // 좋아요 상태 업데이트 및 얼럿 표시
-        if (!isLiked) {
-            alert("위시리스트에 추가되었습니다.");
-        } else {
-            alert("위시리스트에서 제거되었습니다.");
+        if (!customerId) {
+            alert("사용자 정보를 불러올 수 없습니다. 다시 로그인해주세요.");
+            return;
         }
 
-        setIsLiked(!isLiked);
+        try {
+            const response = await axios.post(`http://localhost:8080/wishlist/toggle`, null, {
+                params: {
+                    customerId: customerId,
+                    productCode: productCode,
+                },
+            });
+
+            alert(response.data); // "Item added to wishlist." 또는 "Item removed from wishlist."
+            setIsLiked((prev) => !prev); // 좋아요 상태 토글
+        } catch (err) {
+            console.error("Error toggling like:", err);
+            alert("좋아요 처리 중 오류가 발생했습니다.");
+        }
     };
 
      // 사용자 Shop ID 가져오기
@@ -134,7 +186,7 @@ function ProductDetail() {
         }
     }, [isLoggedIn]);
 
-    
+
     // 장바구니 버튼 클릭 핸들러
     const handleAddToCart = () => {
         if (!isLoggedIn()) {
