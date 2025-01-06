@@ -188,7 +188,7 @@ export default function NoticeDetail() {
         key={comment.commentNo}
         style={{
           // 깊이에 따른 들여쓰기
-          marginLeft: `${depth * 20}px`,
+          marginLeft: `20px`,
           marginBottom: "10px",
         }}
       >
