@@ -57,14 +57,32 @@ function Wishlist() {
         : [];
 
     // 위시리스트에서 상품 삭제
+    // const handleDelete = (customerId, productCode) => {
+    //     fetch(`http://localhost:8080/wishlist?customerId=${customerId}&productCode=${productCode}`, {
+    //         method: 'DELETE',
+    //     })
+    //         .then((response) => {
+    //             if (response.ok) {
+    //                 setWishlists(wishlists.filter((item) => item.productCode !== productCode));
+    //             }
+    //         })
+    //         .catch((err) => console.error('Error deleting wishlist item:', err));
+    // };
+
     const handleDelete = (customerId, productCode) => {
         fetch(`http://localhost:8080/wishlist?customerId=${customerId}&productCode=${productCode}`, {
             method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
             .then((response) => {
-                if (response.ok) {
-                    setWishlists(wishlists.filter((item) => item.productCode !== productCode));
+                if (!response.ok) {
+                    return response.text().then((text) => {
+                        throw new Error(`Error: ${response.status} - ${text}`);
+                    });
                 }
+                setWishlists((prev) => prev.filter((item) => item.productCode !== productCode));
             })
             .catch((err) => console.error('Error deleting wishlist item:', err));
     };
