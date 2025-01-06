@@ -57,14 +57,32 @@ function Wishlist() {
         : [];
 
     // 위시리스트에서 상품 삭제
+    // const handleDelete = (customerId, productCode) => {
+    //     fetch(`http://localhost:8080/wishlist?customerId=${customerId}&productCode=${productCode}`, {
+    //         method: 'DELETE',
+    //     })
+    //         .then((response) => {
+    //             if (response.ok) {
+    //                 setWishlists(wishlists.filter((item) => item.productCode !== productCode));
+    //             }
+    //         })
+    //         .catch((err) => console.error('Error deleting wishlist item:', err));
+    // };
+
     const handleDelete = (customerId, productCode) => {
         fetch(`http://localhost:8080/wishlist?customerId=${customerId}&productCode=${productCode}`, {
             method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
             .then((response) => {
-                if (response.ok) {
-                    setWishlists(wishlists.filter((item) => item.productCode !== productCode));
+                if (!response.ok) {
+                    return response.text().then((text) => {
+                        throw new Error(`Error: ${response.status} - ${text}`);
+                    });
                 }
+                setWishlists((prev) => prev.filter((item) => item.productCode !== productCode));
             })
             .catch((err) => console.error('Error deleting wishlist item:', err));
     };
@@ -89,10 +107,17 @@ function Wishlist() {
                                 <img
                                     src={item.productImagePath}
                                     alt={item.productName}
-                                    style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                                    style={{width: '100px', height: '100px', objectFit: 'cover'}}
                                 />
                             </td>
-                            <td>{item.productName || 'N/A'}</td>
+                            <td>
+                                <a
+                                    href={`/product/${item.productCode}`}
+                                    style={{textDecoration: 'none', color: 'blue'}}
+                                >
+                                    {item.productName || 'N/A'}
+                                </a>
+                            </td>
                             <td>{item.productPrice ? `${item.productPrice}원` : 'N/A'}</td>
                             <td>
                                 <button
@@ -112,7 +137,7 @@ function Wishlist() {
                     ))
                 ) : (
                     <tr>
-                        <td colSpan="4" style={{ textAlign: 'center' }}>위시리스트에 상품이 없습니다.</td>
+                        <td colSpan="4" style={{textAlign: 'center'}}>위시리스트에 상품이 없습니다.</td>
                     </tr>
                 )}
                 </tbody>
