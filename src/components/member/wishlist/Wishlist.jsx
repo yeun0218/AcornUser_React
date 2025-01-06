@@ -107,10 +107,17 @@ function Wishlist() {
                                 <img
                                     src={item.productImagePath}
                                     alt={item.productName}
-                                    style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                                    style={{width: '100px', height: '100px', objectFit: 'cover'}}
                                 />
                             </td>
-                            <td>{item.productName || 'N/A'}</td>
+                            <td>
+                                <a
+                                    href={`/product/${item.productCode}`}
+                                    style={{textDecoration: 'none', color: 'blue'}}
+                                >
+                                    {item.productName || 'N/A'}
+                                </a>
+                            </td>
                             <td>{item.productPrice ? `${item.productPrice}원` : 'N/A'}</td>
                             <td>
                                 <button
@@ -130,7 +137,7 @@ function Wishlist() {
                     ))
                 ) : (
                     <tr>
-                        <td colSpan="4" style={{ textAlign: 'center' }}>위시리스트에 상품이 없습니다.</td>
+                        <td colSpan="4" style={{textAlign: 'center'}}>위시리스트에 상품이 없습니다.</td>
                     </tr>
                 )}
                 </tbody>
