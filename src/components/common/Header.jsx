@@ -73,6 +73,9 @@ const Header = ({ isLogin, logout }) => {
                 <Link to="/reservation" className="nav-link">
                   예약하기
                 </Link>
+                <Link to="/wishlist" className="nav-link">
+                  위시리스트
+                </Link>
               </Nav>
               {/* {!isLogin ? (
                   <Button

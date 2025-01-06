@@ -20,6 +20,7 @@ import About from "../components/member/aboutshop/About.jsx";
 import AcornShop from "../components/member/aboutshop/AcornShop.jsx";
 import Mypage from "../components/member/mypage/MyPage.jsx";
 import Service from "../components/member/aboutservice/Service.jsx";
+import Wishlist from "../components/member/wishlist/Wishlist";
 const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
     const location = useLocation();
     return (
@@ -78,7 +79,7 @@ const AppRoutes = ({ isLogin, setIsLogin, logout }) => {
                     )
                 }
             />
-
+            <Route path="/wishlist" element={<Wishlist />} />
 
             <Route path="/about" element={<About />} />
             <Route path="/notice" element={<Notice />} />
